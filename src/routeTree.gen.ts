@@ -10,33 +10,92 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ScanRouteImport } from './routes/scan'
+import { Route as ScreenshotRouteImport } from './routes/screenshot'
+import { Route as ThreatMapRouteImport } from './routes/threat-map'
+import { Route as UrlScannerRouteImport } from './routes/url-scanner'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScanRoute = ScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScreenshotRoute = ScreenshotRouteImport.update({
+  id: '/screenshot',
+  path: '/screenshot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThreatMapRoute = ThreatMapRouteImport.update({
+  id: '/threat-map',
+  path: '/threat-map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UrlScannerRoute = UrlScannerRouteImport.update({
+  id: '/url-scanner',
+  path: '/url-scanner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/scan': typeof ScanRoute
+  '/screenshot': typeof ScreenshotRoute
+  '/threat-map': typeof ThreatMapRoute
+  '/url-scanner': typeof UrlScannerRoute
+  '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/scan': typeof ScanRoute
+  '/screenshot': typeof ScreenshotRoute
+  '/threat-map': typeof ThreatMapRoute
+  '/url-scanner': typeof UrlScannerRoute
+  '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/scan': typeof ScanRoute
+  '/screenshot': typeof ScreenshotRoute
+  '/threat-map': typeof ThreatMapRoute
+  '/url-scanner': typeof UrlScannerRoute
+  '/api/chat': typeof ApiChatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/scan' | '/screenshot' | '/threat-map' | '/url-scanner' | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    '/' | '/scan' | '/screenshot' | '/threat-map' | '/url-scanner' | '/api/chat'
+  id:
+    | '__root__'
+    | '/'
+    | '/scan'
+    | '/screenshot'
+    | '/threat-map'
+    | '/url-scanner'
+    | '/api/chat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ScanRoute: typeof ScanRoute
+  ScreenshotRoute: typeof ScreenshotRoute
+  ThreatMapRoute: typeof ThreatMapRoute
+  UrlScannerRoute: typeof UrlScannerRoute
+  ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +107,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/scan': {
+      id: '/scan'
+      path: '/scan'
+      fullPath: '/scan'
+      preLoaderRoute: typeof ScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/screenshot': {
+      id: '/screenshot'
+      path: '/screenshot'
+      fullPath: '/screenshot'
+      preLoaderRoute: typeof ScreenshotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/threat-map': {
+      id: '/threat-map'
+      path: '/threat-map'
+      fullPath: '/threat-map'
+      preLoaderRoute: typeof ThreatMapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/url-scanner': {
+      id: '/url-scanner'
+      path: '/url-scanner'
+      fullPath: '/url-scanner'
+      preLoaderRoute: typeof UrlScannerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ScanRoute: ScanRoute,
+  ScreenshotRoute: ScreenshotRoute,
+  ThreatMapRoute: ThreatMapRoute,
+  UrlScannerRoute: UrlScannerRoute,
+  ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
