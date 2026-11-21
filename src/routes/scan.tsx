@@ -110,7 +110,7 @@ function ScanPage() {
                     setText(s.text);
                     setSender(s.sender);
                   }}
-                  className="rounded-lg border border-border bg-surface-raised px-3 py-2 text-[13px] transition-colors hover:border-input hover:bg-[#2a2a2d]">
+                  className="rounded-lg border border-border bg-surface-raised px-3 py-2 text-[13px] transition-colors hover:border-input hover:bg-[#2e3522]">
                   {s.label}
                 </button>
               ))}

@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "ScamShield — Check messages, links and screenshots for scams in India" },
       { name: "description", content: "Check SMS, WhatsApp messages, links and screenshots for scams, and see which scams are reaching people in India." },
       { name: "author", content: "ScamShield" },
-      { name: "theme-color", content: "#141415" },
+      { name: "theme-color", content: "#12160d" },
       { property: "og:title", content: "ScamShield — Is this message a scam?" },
       { property: "og:description", content: "Check SMS, WhatsApp messages, links and screenshots for scams, and see which scams are reaching people in India." },
       { property: "og:type", content: "website" },

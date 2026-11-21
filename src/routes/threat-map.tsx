@@ -197,7 +197,7 @@ function StateDetail({ s }: { s: StateRow }) {
           <BarChart data={data} margin={{ top: 8, right: 0, left: 0, bottom: 0 }}>
             <XAxis dataKey="year" tick={{ fill: "var(--subtle)", fontSize: 12, fontFamily: "var(--font-mono)" }} axisLine={false} tickLine={false} />
             <Tooltip
-              cursor={{ fill: "rgb(237 237 237 / 0.04)" }}
+              cursor={{ fill: "rgb(238 240 226 / 0.04)" }}
               contentStyle={{ background: "var(--popover)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12 }}
               labelStyle={{ color: "var(--foreground)" }}
               formatter={(v, _n, item) => [Number(v).toLocaleString("en-IN"), (item.payload as { kind: string }).kind === "estimated" ? "Estimated" : "Reported"]}

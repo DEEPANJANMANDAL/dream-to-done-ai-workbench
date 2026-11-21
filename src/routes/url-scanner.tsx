@@ -90,7 +90,7 @@ function UrlScannerPage() {
         <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px]">
           <span className="text-muted-foreground">Try</span>
           {SAMPLES.map((s) => (
-            <button key={s} type="button" onClick={() => setUrl(s)} className="rounded-lg border border-border bg-surface-raised px-3 py-1 font-mono text-xs transition-colors hover:border-input hover:bg-[#2a2a2d]">
+            <button key={s} type="button" onClick={() => setUrl(s)} className="rounded-lg border border-border bg-surface-raised px-3 py-1 font-mono text-xs transition-colors hover:border-input hover:bg-[#2e3522]">
               {s}
             </button>
           ))}

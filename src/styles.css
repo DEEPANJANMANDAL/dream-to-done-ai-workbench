@@ -11,7 +11,7 @@
 
 /*
  * ScamShield design system: calm and plain-spoken.
- * Graphite surfaces carry four brand colors:
+ * Dark olive surfaces carry four brand colors:
  *   main      sage   #ACB686  logo, primary actions, active state, key figures, reported data
  *   accent    slate  #869EB6  links, focus, second data series
  *   secondary violet #7C64D8  estimates, projections, the assistant
@@ -89,24 +89,24 @@
 .dark {
   --radius: 0.75rem;
 
-  /* Graphite ramp */
-  --background: #141415;
-  --foreground: #ededed;
-  --surface: #19191b;
-  --surface-raised: #232325;
-  --card: #19191b;
-  --card-foreground: #ededed;
-  --popover: #1e1e20;
-  --popover-foreground: #ededed;
-  --secondary: #232325;
-  --secondary-foreground: #ededed;
-  --muted: #1e1e20;
-  --muted-foreground: #a1a1a6;
-  --subtle: #85858b;
-  --accent: #232325;
-  --accent-foreground: #ededed;
-  --border: rgb(237 237 237 / 0.08);
-  --input: rgb(237 237 237 / 0.12);
+  /* Dark olive ramp, tinted toward the sage main color */
+  --background: #12160d;
+  --foreground: #eef0e2;
+  --surface: #1a1f13;
+  --surface-raised: #262c1c;
+  --card: #1a1f13;
+  --card-foreground: #eef0e2;
+  --popover: #1e2416;
+  --popover-foreground: #eef0e2;
+  --secondary: #262c1c;
+  --secondary-foreground: #eef0e2;
+  --muted: #1e2416;
+  --muted-foreground: #aab095;
+  --subtle: #8c9378;
+  --accent: #262c1c;
+  --accent-foreground: #eef0e2;
+  --border: rgb(238 240 226 / 0.08);
+  --input: rgb(238 240 226 / 0.12);
 
   /* Main: sage, dark text on it */
   --primary: #acb686;
@@ -129,7 +129,7 @@
   --info: #869eb6;
 
   --chat-user: #2a2440;
-  --chat-user-foreground: #ededed;
+  --chat-user-foreground: #eef0e2;
 
   /* Charts: brand colors in order, then neutral */
   --chart-1: #acb686;
@@ -138,13 +138,13 @@
   --chart-4: #c0d864;
   --chart-5: #6a6a70;
 
-  --sidebar: #0f0f10;
-  --sidebar-foreground: #ededed;
+  --sidebar: #0c0f08;
+  --sidebar-foreground: #eef0e2;
   --sidebar-primary: #acb686;
   --sidebar-primary-foreground: #1a1c12;
-  --sidebar-accent: #232325;
-  --sidebar-accent-foreground: #ededed;
-  --sidebar-border: rgb(237 237 237 / 0.08);
+  --sidebar-accent: #262c1c;
+  --sidebar-accent-foreground: #eef0e2;
+  --sidebar-border: rgb(238 240 226 / 0.08);
   --sidebar-ring: #869eb6;
 
   --shadow-glow-value: none;
