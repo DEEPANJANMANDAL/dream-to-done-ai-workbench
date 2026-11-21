@@ -134,7 +134,7 @@ function ChatWindow({ threadId }: { threadId: string }) {
 
   return (
     <>
-      <div className="flex items-center gap-2.5 border-b border-border px-4 py-3">
+      <div className="flex items-center gap-3 border-b border-border px-4 py-3">
         <LogoMark className="size-5" />
         <div className="min-w-0">
           <p className="truncate text-sm font-medium">{thread?.title ?? "Conversation"}</p>
@@ -148,7 +148,7 @@ function ChatWindow({ threadId }: { threadId: string }) {
               <p className="text-sm text-muted-foreground">Ask your question below, or try one of these</p>
               <div className="mt-4 flex flex-wrap justify-center gap-2">
                 {STARTER_PROMPTS.slice(0, 4).map((p) => (
-                  <button key={p} type="button" onClick={() => void send(p)} className="rounded-lg border border-border px-3 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-surface-raised hover:text-foreground">
+                  <button key={p} type="button" onClick={() => void send(p)} className="rounded-lg border border-border px-3 py-2 text-[13px] text-muted-foreground transition-colors hover:bg-surface-raised hover:text-foreground">
                     {p}
                   </button>
                 ))}

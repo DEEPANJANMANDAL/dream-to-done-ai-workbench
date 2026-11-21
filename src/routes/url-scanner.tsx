@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { ArrowDown, Globe, Link2, ListChecks, Lock, Route as RouteIcon, ScanLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { PageIntro, Panel, PanelHeader, StatusTag } from "@/components/shield/ui";
 import { VerdictPanel } from "@/components/shield/VerdictPanel";
 import { scanUrl } from "@/lib/scan.functions";
@@ -12,12 +13,17 @@ import type { UrlScanResult } from "@/lib/scam-types";
 export const Route = createFileRoute("/url-scanner")({
   head: () => ({
     meta: [
-      { title: "Advanced URL Scanner — Check phishing links | ScamShield" },
-      { name: "description", content: "Check any link for phishing, look-alike bank sites, hidden redirects and SSL problems — with plain-language explanations." },
-      { property: "og:title", content: "Advanced URL Scanner — ScamShield" },
-      { property: "og:description", content: "Detect phishing sites, look-alike banking domains, redirects and SSL issues." },
+      { title: "Check a link before you tap it | ScamShield" },
+      { name: "description", content: "Check any link for phishing, look-alike bank sites, hidden redirects and certificate problems, explained in plain language." },
+      { property: "og:title", content: "Check a link before you tap it" },
+      { property: "og:description", content: "Check any link for phishing, look-alike bank sites, hidden redirects and certificate problems, explained in plain language." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://dream-to-done-ai-workbench.lovable.app/url-scanner" },
+      { property: "og:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
     ],
   }),
   component: UrlScannerPage,
@@ -77,14 +83,14 @@ function UrlScannerPage() {
               className="h-11 min-w-0 flex-1 bg-transparent font-mono text-sm outline-none placeholder:font-sans placeholder:text-subtle"
             />
           </div>
-          <Button type="submit" variant="scan" size="lg" disabled={loading || url.trim().length < 3}>
-            <ScanLine /> {loading ? "Checking" : "Check link"}
+          <Button type="submit" variant="scan" size="lg" className="disabled:aria-busy:opacity-80" aria-busy={loading} disabled={loading || url.trim().length < 3}>
+            {loading ? <Spinner /> : <ScanLine />} {loading ? "Checking the link" : "Check link"}
           </Button>
         </form>
         <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px]">
           <span className="text-muted-foreground">Try</span>
           {SAMPLES.map((s) => (
-            <button key={s} type="button" onClick={() => setUrl(s)} className="rounded-lg border border-border bg-surface-raised px-2.5 py-1 font-mono text-xs transition-colors hover:border-input hover:bg-[#2a2a2d]">
+            <button key={s} type="button" onClick={() => setUrl(s)} className="rounded-lg border border-border bg-surface-raised px-3 py-1 font-mono text-xs transition-colors hover:border-input hover:bg-[#2a2a2d]">
               {s}
             </button>
           ))}

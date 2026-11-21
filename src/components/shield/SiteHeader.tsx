@@ -27,7 +27,7 @@ export function SiteHeader() {
               key={t.to}
               to={t.to}
               activeOptions={{ exact: t.exact }}
-              className="rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground data-[status=active]:bg-surface-raised data-[status=active]:text-foreground data-[status=active]:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+              className="rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground data-[status=active]:bg-surface-raised data-[status=active]:text-foreground data-[status=active]:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
             >
               {t.label}
             </Link>
@@ -66,9 +66,14 @@ export function SiteFooter() {
     <footer className="mt-16 border-t border-border">
       <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-[13px] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
         <p>ScamShield gives guidance, not legal advice. Lost money? Call 1930 within the first hour</p>
-        <a href="https://cybercrime.gov.in/" target="_blank" rel="noreferrer" className="text-primary hover:underline">
-          Report at cybercrime.gov.in
-        </a>
+        <div className="flex gap-6">
+          <a href="https://cybercrime.gov.in/" target="_blank" rel="noreferrer" className="text-primary hover:underline">
+            Report at cybercrime.gov.in
+          </a>
+          <a href="https://github.com/DEEPANJANMANDAL/dream-to-done-ai-workbench" target="_blank" rel="noreferrer" className="transition-colors hover:text-foreground">
+            Source on GitHub
+          </a>
+        </div>
       </div>
     </footer>
   );

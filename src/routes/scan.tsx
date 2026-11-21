@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useRef, useState } from "react";
 import { ScanLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { PageIntro, Panel } from "@/components/shield/ui";
 import { VerdictPanel } from "@/components/shield/VerdictPanel";
 import { scanMessage } from "@/lib/scan.functions";
@@ -14,12 +15,17 @@ export const Route = createFileRoute("/scan")({
     typeof search["text"] === "string" ? { text: search["text"].slice(0, 6000) } : {},
   head: () => ({
     meta: [
-      { title: "Message Scanner — Is this SMS or WhatsApp a scam? | ScamShield" },
-      { name: "description", content: "Paste any SMS, WhatsApp forward or UPI request and get an instant AI scam verdict with clear next steps." },
-      { property: "og:title", content: "Is this message a scam? — ScamShield" },
-      { property: "og:description", content: "Instant AI scam verdicts for SMS, WhatsApp and UPI messages." },
+      { title: "Is this message a scam? Check an SMS or WhatsApp | ScamShield" },
+      { name: "description", content: "Paste any SMS, WhatsApp forward or UPI request to get a scam verdict, the warning signs and clear next steps." },
+      { property: "og:title", content: "Is this message a scam? Check an SMS or WhatsApp" },
+      { property: "og:description", content: "Paste any SMS, WhatsApp forward or UPI request to get a scam verdict, the warning signs and clear next steps." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://dream-to-done-ai-workbench.lovable.app/scan" },
+      { property: "og:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
     ],
   }),
   component: ScanPage,
@@ -49,10 +55,10 @@ function ScanPage() {
     setLoading(true);
     setError(null);
     setResult(null);
+    setChecked({ sender, text: v });
     try {
       const res = await scan({ data: { text: v } });
       if (res.ok) {
-        setChecked({ sender, text: v });
         setResult(res.result);
         addHistory({ kind: "message", title: v.slice(0, 90), verdict: res.result.verdict, riskScore: res.result.riskScore, category: res.result.category });
       } else setError(res.error);
@@ -92,7 +98,7 @@ function ScanPage() {
                 setSender("Pasted message");
               }}
               placeholder="Paste the message"
-              className="min-h-48 w-full resize-y rounded-xl border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-primary"
+              className="min-h-48 w-full resize-y rounded-[10px] border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-primary"
             />
             <div className="flex items-center justify-between text-[13px] text-muted-foreground">
               <span>Try a sample</span>
@@ -104,13 +110,13 @@ function ScanPage() {
                     setText(s.text);
                     setSender(s.sender);
                   }}
-                  className="rounded-lg border border-border bg-surface-raised px-3 py-1.5 text-[13px] transition-colors hover:border-input hover:bg-[#2a2a2d]">
+                  className="rounded-lg border border-border bg-surface-raised px-3 py-2 text-[13px] transition-colors hover:border-input hover:bg-[#2a2a2d]">
                   {s.label}
                 </button>
               ))}
             </div>
-            <Button type="submit" variant="scan" size="lg" className="w-full" disabled={loading || text.trim().length < 3}>
-              <ScanLine /> {loading ? "Checking" : "Check message"}
+            <Button type="submit" variant="scan" size="lg" className="w-full disabled:aria-busy:opacity-80" aria-busy={loading} disabled={loading || text.trim().length < 3}>
+              {loading ? <Spinner /> : <ScanLine />} {loading ? "Checking the message" : "Check message"}
             </Button>
           </form>
         </Panel>

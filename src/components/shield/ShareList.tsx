@@ -13,7 +13,7 @@ export function ShareList({ data, unit = "" }: { data: { name: string; value: nu
               {Math.round((d.value / total) * 100)}%
             </span>
           </div>
-          <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-surface-raised">
+          <div className="mt-2 h-1 overflow-hidden rounded-full bg-surface-raised">
             <div className={i === 0 ? "h-full rounded-full bg-primary" : "h-full rounded-full bg-subtle/60"} style={{ width: `${(d.value / max) * 100}%` }} />
           </div>
         </li>

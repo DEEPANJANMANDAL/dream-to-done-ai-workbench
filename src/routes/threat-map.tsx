@@ -12,12 +12,17 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/threat-map")({
   head: () => ({
     meta: [
-      { title: "Scam map of India — Cases by state | ScamShield" },
-      { name: "description", content: "State-wise cyber crime trends across India from NCRB data, common fraud categories and incidents over time — with estimates clearly labelled." },
-      { property: "og:title", content: "India Cyber Threat Map — ScamShield" },
-      { property: "og:description", content: "State-wise cyber crime trends, fraud categories and incidents over time across India." },
+      { title: "Scam map of India, cases by state | ScamShield" },
+      { name: "description", content: "State-wise cyber crime cases across India from NCRB data, fraud categories and trends over time, with estimates clearly labelled." },
+      { property: "og:title", content: "Scam map of India, cases by state" },
+      { property: "og:description", content: "State-wise cyber crime cases across India from NCRB data, fraud categories and trends over time, with estimates clearly labelled." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://dream-to-done-ai-workbench.lovable.app/threat-map" },
+      { property: "og:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
     ],
   }),
   component: ThreatMapPage,
@@ -66,7 +71,7 @@ function ThreatMapPage() {
                 key={m.id}
                 type="button"
                 onClick={() => setMetricId(m.id)}
-                className={cn("flex-1 rounded-md px-3 py-1.5 text-[13px] font-medium transition-colors", metricId === m.id ? "bg-surface-raised text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]" : "text-muted-foreground hover:text-foreground")}
+                className={cn("flex-1 rounded-md px-3 py-2 text-[13px] font-medium transition-colors", metricId === m.id ? "bg-surface-raised text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]" : "text-muted-foreground hover:text-foreground")}
               >
                 {m.label}
               </button>
@@ -90,7 +95,7 @@ function ThreatMapPage() {
                 const max = metric.get(ranked[0]!);
                 return (
                   <li key={s.code}>
-                    <button type="button" onClick={() => setSelected(s.code)} className={cn("grid w-full grid-cols-[1.25rem_minmax(0,1fr)_auto] items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors hover:bg-secondary", selected === s.code && "bg-secondary")}>
+                    <button type="button" onClick={() => setSelected(s.code)} className={cn("grid w-full grid-cols-[1.25rem_minmax(0,1fr)_auto] items-center gap-2 rounded-md px-2 py-2 text-left text-sm transition-colors hover:bg-secondary", selected === s.code && "bg-secondary")}>
                       <span className="font-mono text-xs text-subtle">{i + 1}</span>
                       <span className="min-w-0">
                         <span className="block truncate">{s.name}</span>

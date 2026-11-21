@@ -15,11 +15,16 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "ScamShield — Check messages, links and screenshots for scams in India" },
-      { name: "description", content: "One dashboard to scan messages, links and screenshots for scams and track India's cyber crime trends." },
-      { property: "og:title", content: "ScamShield — Is this message a scam?" },
-      { property: "og:description", content: "Scan messages, links and screenshots for scams and track India's cyber threats." },
+      { name: "description", content: "Paste an SMS or WhatsApp message to see if it's a scam, check links and screenshots, and see which scams are reaching people in India this week." },
+      { property: "og:title", content: "ScamShield — Check messages, links and screenshots for scams in India" },
+      { property: "og:description", content: "Paste an SMS or WhatsApp message to see if it's a scam, check links and screenshots, and see which scams are reaching people in India this week." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://dream-to-done-ai-workbench.lovable.app/" },
+      { property: "og:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
     ],
   }),
   component: Dashboard,
@@ -40,7 +45,7 @@ function Dashboard() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
-      <a href="#trending" className="group flex min-w-0 items-center gap-3 rounded-xl border border-border px-4 py-2.5 text-sm transition-colors hover:bg-surface">
+      <a href="#trending" className="group flex min-w-0 items-center gap-3 rounded-xl border border-border px-4 py-3 text-sm transition-colors hover:bg-surface">
         <span className="size-2 shrink-0 rounded-full bg-destructive" />
         <span className="shrink-0 text-muted-foreground">Trending now</span>
         <span className="min-w-0 truncate">
@@ -99,7 +104,7 @@ function Dashboard() {
           <IndiaTileMap metric={(s) => s.y2023} compact />
           <div className="mt-4 space-y-3">
             <MapLegend label="Cases, 2023" />
-            <ol className="space-y-1.5 border-t border-border pt-3">
+            <ol className="space-y-2 border-t border-border pt-3">
               {top.map((s, i) => (
                 <li key={s.code} className="grid grid-cols-[16px_minmax(0,1fr)_auto] items-baseline gap-2 text-sm">
                   <span className="font-mono text-xs text-subtle">{i + 1}</span>
@@ -185,7 +190,7 @@ function QuickScan() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Paste the SMS or WhatsApp message"
-          className="min-h-32 resize-none rounded-xl border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-primary"
+          className="min-h-32 resize-none rounded-[10px] border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-primary"
         />
         <Button type="submit" variant="scan" size="lg" disabled={text.trim().length < 3}>
           <FileText /> Check message

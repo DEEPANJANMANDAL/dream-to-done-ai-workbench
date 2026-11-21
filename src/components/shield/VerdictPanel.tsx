@@ -3,7 +3,7 @@ import { AlertTriangle, Phone } from "lucide-react";
 import type { BaseVerdict } from "@/lib/scam-types";
 import { Panel, RiskGauge, SmsBubble, VerdictPill } from "./ui";
 import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 const verdictBorder = { scam: "border-destructive/40", suspicious: "border-warning/40", safe: "border-safe/40" } as const;
@@ -26,10 +26,23 @@ export function VerdictPanel({
 }) {
   if (loading) {
     return (
-      <Panel className="flex min-h-72 flex-col items-center justify-center text-center">
-        <Spinner className="mb-3 size-5 text-subtle" />
-        <p className="text-[15px]">Checking</p>
-        <p className="mt-1 text-[13px] text-muted-foreground">Comparing against known Indian scam patterns</p>
+      <Panel className="space-y-6">
+        <p className="sr-only" role="status">
+          Checking against known Indian scam patterns
+        </p>
+        {message && <SmsBubble sender={message.sender}>{message.text}</SmsBubble>}
+        <div className="flex flex-col items-center gap-4" aria-hidden>
+          <Skeleton className="h-28 w-44 rounded-t-full" />
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-4 w-64 max-w-full" />
+        </div>
+        <div className="space-y-3" aria-hidden>
+          <Skeleton className="h-3 w-24" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-5/6" />
+          <Skeleton className="h-4 w-4/6" />
+        </div>
+        <p className="text-center text-[13px] text-muted-foreground">Comparing against known Indian scam patterns</p>
       </Panel>
     );
   }
@@ -49,7 +62,7 @@ export function VerdictPanel({
     );
   }
   return (
-    <Panel className={cn("space-y-6", verdictBorder[result.verdict])}>
+    <Panel className={cn("animate-in fade-in-0 slide-in-from-bottom-2 space-y-6 duration-300", verdictBorder[result.verdict])}>
       {message && <SmsBubble sender={message.sender}>{message.text}</SmsBubble>}
       <div className="text-center">
         <RiskGauge score={result.riskScore} />

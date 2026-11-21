@@ -3,6 +3,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { useRef, useState } from "react";
 import { CreditCard, FileText, ImageUp, KeyRound, Link2, QrCode, ScanLine, Wallet, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Spinner } from "@/components/ui/spinner";
 import { PageIntro, Panel, PanelHeader } from "@/components/shield/ui";
 import { VerdictPanel } from "@/components/shield/VerdictPanel";
 import { scanScreenshot } from "@/lib/scan.functions";
@@ -13,12 +15,17 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/screenshot")({
   head: () => ({
     meta: [
-      { title: "Screenshot Scam Detector — WhatsApp, fake payments & QR | ScamShield" },
-      { name: "description", content: "Upload a WhatsApp, SMS or payment screenshot. We read the text and detect fake payment proofs, scam QR codes and payment requests." },
-      { property: "og:title", content: "Screenshot Scam Detector — ScamShield" },
-      { property: "og:description", content: "Detect fake payment screenshots, scam QR codes and payment requests from any screenshot." },
+      { title: "Check a screenshot for scams | ScamShield" },
+      { name: "description", content: "Upload a WhatsApp, SMS or payment screenshot. ScamShield reads the text and spots fake payment proofs, scam QR codes and money requests." },
+      { property: "og:title", content: "Check a screenshot for scams" },
+      { property: "og:description", content: "Upload a WhatsApp, SMS or payment screenshot. ScamShield reads the text and spots fake payment proofs, scam QR codes and money requests." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://dream-to-done-ai-workbench.lovable.app/screenshot" },
+      { property: "og:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
     ],
   }),
   component: ScreenshotPage,
@@ -115,8 +122,8 @@ function ScreenshotPage() {
                   </button>
                 </div>
                 <p className="truncate font-mono text-xs text-subtle">{fileName}</p>
-                <Button variant="scan" size="lg" className="w-full" onClick={() => void run()} disabled={loading}>
-                  <ScanLine /> {loading ? "Reading the screenshot" : "Check screenshot"}
+                <Button variant="scan" size="lg" className="w-full disabled:aria-busy:opacity-80" aria-busy={loading} onClick={() => void run()} disabled={loading}>
+                  {loading ? <Spinner /> : <ScanLine />} {loading ? "Reading the screenshot" : "Check screenshot"}
                 </Button>
               </div>
             ) : (
@@ -145,8 +152,14 @@ function ScreenshotPage() {
 
           <Panel>
             <PanelHeader icon={<FileText />} title="Text found in screenshot" subtitle={result ? `Source: ${result.source}` : "Read automatically from the image"} />
-            {result ? (
-              <pre className="max-h-64 overflow-auto whitespace-pre-wrap rounded-xl bg-background p-4 font-mono text-[13px] leading-relaxed">{result.extractedText || "No readable text found"}</pre>
+            {loading ? (
+              <div className="space-y-3 rounded-xl bg-background p-4" aria-hidden>
+                <Skeleton className="h-3 w-11/12" />
+                <Skeleton className="h-3 w-4/5" />
+                <Skeleton className="h-3 w-2/3" />
+              </div>
+            ) : result ? (
+              <pre className="max-h-64 animate-in fade-in-0 duration-300 overflow-auto whitespace-pre-wrap rounded-xl bg-background p-4 font-mono text-[13px] leading-relaxed">{result.extractedText || "No readable text found"}</pre>
             ) : (
               <p className="rounded-xl border border-dashed border-border px-4 py-6 text-center text-[13px] text-muted-foreground">The text from your screenshot appears here</p>
             )}

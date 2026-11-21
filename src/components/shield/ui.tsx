@@ -38,7 +38,7 @@ export function PageIntro({ eyebrow, title, description, children }: { eyebrow: 
 export function SmsBubble({ sender, children, className }: { sender: string; children: ReactNode; className?: string }) {
   return (
     <figure className={cn("min-w-0", className)}>
-      <figcaption className="mb-1.5 font-mono text-xs text-subtle">{sender}</figcaption>
+      <figcaption className="mb-2 font-mono text-xs text-subtle">{sender}</figcaption>
       <blockquote className="rounded-2xl rounded-tl-md border border-border bg-surface-raised px-4 py-3 text-[15px] leading-relaxed">{children}</blockquote>
     </figure>
   );
@@ -54,7 +54,7 @@ const verdictLabel: Record<Verdict, string> = { scam: "Scam", suspicious: "Suspi
 
 export function VerdictPill({ verdict, className }: { verdict: Verdict; className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-1.5 text-[13px] font-medium", verdictText[verdict], className)}>
+    <span className={cn("inline-flex items-center gap-2 text-[13px] font-medium", verdictText[verdict], className)}>
       <span className="size-2 rounded-full bg-current" />
       {verdictLabel[verdict]}
     </span>
@@ -118,7 +118,7 @@ const statusStyle: Record<CheckStatus, { dot: string; label: string }> = {
 export function StatusTag({ status }: { status: CheckStatus }) {
   const s = statusStyle[status];
   return (
-    <span className="inline-flex shrink-0 items-center gap-1.5 text-[13px] text-muted-foreground">
+    <span className="inline-flex shrink-0 items-center gap-2 text-[13px] text-muted-foreground">
       <span className={cn("size-2 rounded-full", s.dot)} />
       {s.label}
     </span>
@@ -128,7 +128,7 @@ export function StatusTag({ status }: { status: CheckStatus }) {
 /** Matches the chart legend: a solid accent line for reported data, a dashed grey line for estimates. */
 export function DataBadge({ kind }: { kind: "reported" | "estimated" }) {
   return (
-    <span className="inline-flex shrink-0 items-center gap-1.5 font-mono text-xs text-subtle">
+    <span className="inline-flex shrink-0 items-center gap-2 font-mono text-xs text-subtle">
       {kind === "reported" ? <span className="h-0.5 w-3 rounded-full bg-primary" /> : <span className="w-3 border-t-2 border-dashed border-subtle" />}
       {kind === "reported" ? "Reported" : "Estimated"}
     </span>

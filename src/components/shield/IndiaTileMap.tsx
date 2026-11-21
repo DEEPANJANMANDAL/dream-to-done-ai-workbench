@@ -24,7 +24,7 @@ export function IndiaTileMap({
   const max = Math.max(...STATES.map(metric), 1);
   return (
     <div
-      className="grid w-full gap-1 sm:gap-1.5"
+      className="grid w-full gap-1 sm:gap-2"
       style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`, gridTemplateRows: `repeat(${ROWS}, minmax(0, 1fr))` }}
       role="list"
       aria-label="India states tile map"

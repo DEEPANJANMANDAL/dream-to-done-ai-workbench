@@ -8,12 +8,17 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/assistant")({
   head: () => ({
     meta: [
-      { title: "AI Cyber Safety Assistant — Ask about scams | ScamShield" },
-      { name: "description", content: "Ask an AI safety assistant whether a UPI ID, call or link is safe, what to do if someone wants your OTP, and how to report online fraud in India." },
-      { property: "og:title", content: "AI Cyber Safety Assistant — ScamShield" },
-      { property: "og:description", content: "Ask anything about scams, UPI safety, OTP requests and reporting fraud in India." },
+      { title: "Ask about a scam call, message or link | ScamShield" },
+      { name: "description", content: "Ask whether a UPI ID, call or link is safe, what to do if someone wants your OTP, and how to report online fraud in India. Any language." },
+      { property: "og:title", content: "Ask about a scam call, message or link" },
+      { property: "og:description", content: "Ask whether a UPI ID, call or link is safe, what to do if someone wants your OTP, and how to report online fraud in India. Any language." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://dream-to-done-ai-workbench.lovable.app/assistant" },
+      { property: "og:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://dream-to-done-ai-workbench.lovable.app/og.png" },
     ],
   }),
   component: AssistantLayout,
@@ -48,7 +53,7 @@ function AssistantLayout() {
         {sorted.length === 0 ? (
           <p className="px-1 py-3 text-[13px] text-muted-foreground">No conversations yet</p>
         ) : (
-          <ul className="scrollbar-none flex gap-1.5 overflow-x-auto pb-1 lg:flex-col lg:overflow-y-auto lg:overflow-x-visible">
+          <ul className="scrollbar-none flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-y-auto lg:overflow-x-visible">
             {sorted.map((t) => (
               <li
                 key={t.id}
@@ -57,7 +62,7 @@ function AssistantLayout() {
                   t.id === activeId ? "border-border bg-surface-raised" : "hover:bg-surface-raised",
                 )}
               >
-                <Link to="/assistant/$threadId" params={{ threadId: t.id }} className="min-w-0 flex-1 px-2.5 py-2">
+                <Link to="/assistant/$threadId" params={{ threadId: t.id }} className="min-w-0 flex-1 px-3 py-2">
                   <span className="block truncate text-sm">{t.title}</span>
                   <span className="block text-xs text-subtle">{formatDistanceToNow(t.updatedAt, { addSuffix: true })}</span>
                 </Link>
