@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as ScanRouteImport } from './routes/scan'
 import { Route as ScreenshotRouteImport } from './routes/screenshot'
@@ -22,6 +23,11 @@ import { Route as AssistantThreadIdRouteImport } from './routes/assistant.$threa
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssistantRoute = AssistantRouteImport.update({
@@ -67,6 +73,7 @@ const AssistantThreadIdRoute = AssistantThreadIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
   '/assistant': typeof AssistantRouteWithChildren
   '/scan': typeof ScanRoute
   '/screenshot': typeof ScreenshotRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
   '/scan': typeof ScanRoute
   '/screenshot': typeof ScreenshotRoute
   '/threat-map': typeof ThreatMapRoute
@@ -89,6 +97,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
   '/assistant': typeof AssistantRouteWithChildren
   '/scan': typeof ScanRoute
   '/screenshot': typeof ScreenshotRoute
@@ -102,6 +111,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/alerts'
     | '/assistant'
     | '/scan'
     | '/screenshot'
@@ -113,6 +123,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/alerts'
     | '/scan'
     | '/screenshot'
     | '/threat-map'
@@ -123,6 +134,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/alerts'
     | '/assistant'
     | '/scan'
     | '/screenshot'
@@ -135,6 +147,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
   AssistantRoute: typeof AssistantRouteWithChildren
   ScanRoute: typeof ScanRoute
   ScreenshotRoute: typeof ScreenshotRoute
@@ -150,6 +163,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/assistant': {
@@ -227,6 +247,7 @@ const AssistantRouteWithChildren = AssistantRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
   AssistantRoute: AssistantRouteWithChildren,
   ScanRoute: ScanRoute,
   ScreenshotRoute: ScreenshotRoute,

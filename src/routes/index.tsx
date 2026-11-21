@@ -129,8 +129,15 @@ function Dashboard() {
       </div>
 
       <section id="trending" className="mt-16 scroll-mt-20">
-        <h2 className="mb-1 text-xl font-medium">Trending this week</h2>
-        <p className="mb-6 text-sm text-muted-foreground">Scams people across India are reporting right now</p>
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h2 className="mb-1 text-xl font-medium">Trending this week</h2>
+            <p className="text-sm text-muted-foreground">Scams people across India are reporting right now</p>
+          </div>
+          <Link to="/alerts" className="text-sm text-link hover:underline">
+            Seen a new one? Warn others in Scam alerts
+          </Link>
+        </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {TRENDING_SCAMS.map((t) => (
             <article key={t.title} className="panel p-5">

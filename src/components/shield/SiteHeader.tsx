@@ -10,6 +10,7 @@ const TABS = [
   { to: "/url-scanner", label: "Links", exact: false },
   { to: "/screenshot", label: "Screenshots", exact: false },
   { to: "/threat-map", label: "Scam map", exact: false },
+  { to: "/alerts", label: "Scam alerts", exact: false },
   { to: "/assistant", label: "Assistant", exact: false },
 ] as const;
 
