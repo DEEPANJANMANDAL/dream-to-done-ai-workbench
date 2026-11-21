@@ -98,7 +98,7 @@ function ScanPage() {
                 setSender("Pasted message");
               }}
               placeholder="Paste the message"
-              className="min-h-48 w-full resize-y rounded-[10px] border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-link"
+              className="min-h-48 w-full resize-y rounded-[10px] border border-input bg-field p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-link"
             />
             <div className="flex items-center justify-between text-[13px] text-muted-foreground">
               <span>Try a sample</span>
@@ -110,7 +110,7 @@ function ScanPage() {
                     setText(s.text);
                     setSender(s.sender);
                   }}
-                  className="rounded-lg border border-border bg-surface-raised px-3 py-2 text-[13px] transition-colors hover:border-input hover:bg-[#2e3522]">
+                  className="rounded-lg border border-border bg-surface-raised px-3 py-2 text-[13px] transition-colors hover:border-input hover:bg-[#dcdfc8]">
                   {s.label}
                 </button>
               ))}

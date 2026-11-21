@@ -8,7 +8,7 @@ export function NationalTrendChart({ height = 220 }: { height?: number }) {
         <AreaChart data={NATIONAL_TIMELINE} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
           <defs>
             <linearGradient id="reportedFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.22} />
+              <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.25} />
               <stop offset="100%" stopColor="var(--primary)" stopOpacity={0} />
             </linearGradient>
           </defs>
@@ -21,7 +21,7 @@ export function NationalTrendChart({ height = 220 }: { height?: number }) {
             formatter={(value, name) => [Number(value).toLocaleString("en-IN"), name === "reported" ? "Reported (NCRB)" : "Estimated"]}
           />
           <Area type="monotone" dataKey="estimated" stroke="var(--violet)" strokeDasharray="4 4" strokeWidth={2} fill="none" connectNulls />
-          <Area type="monotone" dataKey="reported" stroke="var(--primary)" strokeWidth={2} fill="url(#reportedFill)" />
+          <Area type="monotone" dataKey="reported" stroke="var(--chart-1)" strokeWidth={2} fill="url(#reportedFill)" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

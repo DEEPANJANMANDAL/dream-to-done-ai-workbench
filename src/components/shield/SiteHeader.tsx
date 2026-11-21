@@ -27,7 +27,7 @@ export function SiteHeader() {
               key={t.to}
               to={t.to}
               activeOptions={{ exact: t.exact }}
-              className="rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground data-[status=active]:bg-surface-raised data-[status=active]:text-primary data-[status=active]:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+              className="rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground data-[status=active]:bg-surface data-[status=active]:text-primary data-[status=active]:shadow-[0_1px_2px_rgba(27,31,18,0.08)]"
             >
               {t.label}
             </Link>

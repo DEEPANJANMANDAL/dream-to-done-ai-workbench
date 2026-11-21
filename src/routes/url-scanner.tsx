@@ -69,7 +69,7 @@ function UrlScannerPage() {
           }}
           className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]"
         >
-          <div className="flex min-w-0 items-center gap-3 rounded-[10px] border border-input bg-background px-3 transition-colors focus-within:border-link">
+          <div className="flex min-w-0 items-center gap-3 rounded-[10px] border border-input bg-field px-3 transition-colors focus-within:border-link">
             <Link2 className="size-4 shrink-0 stroke-[1.5] text-subtle" />
             <label htmlFor="url" className="sr-only">Link to check</label>
             <input
@@ -90,7 +90,7 @@ function UrlScannerPage() {
         <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px]">
           <span className="text-muted-foreground">Try</span>
           {SAMPLES.map((s) => (
-            <button key={s} type="button" onClick={() => setUrl(s)} className="rounded-lg border border-border bg-surface-raised px-3 py-1 font-mono text-xs transition-colors hover:border-input hover:bg-[#2e3522]">
+            <button key={s} type="button" onClick={() => setUrl(s)} className="rounded-lg border border-border bg-surface-raised px-3 py-1 font-mono text-xs transition-colors hover:border-input hover:bg-[#dcdfc8]">
               {s}
             </button>
           ))}

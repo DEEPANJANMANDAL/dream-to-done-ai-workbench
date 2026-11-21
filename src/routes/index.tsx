@@ -32,7 +32,7 @@ export const Route = createFileRoute("/")({
 
 const TOOLS = [
   { to: "/url-scanner", label: "Link", icon: Link2, color: "text-link" },
-  { to: "/screenshot", label: "Screenshot", icon: ImageIcon, color: "text-lime" },
+  { to: "/screenshot", label: "Screenshot", icon: ImageIcon, color: "text-lime-strong" },
   { to: "/assistant", label: "Ask a question", icon: Bot, color: "text-violet" },
 ] as const;
 
@@ -45,7 +45,7 @@ function Dashboard() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
-      <a href="#trending" className="group flex min-w-0 items-center gap-3 rounded-xl border border-border px-4 py-3 text-sm transition-colors hover:bg-surface">
+      <a href="#trending" className="group flex min-w-0 items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 text-sm transition-colors hover:bg-field">
         <span className="size-2 shrink-0 rounded-full bg-destructive" />
         <span className="shrink-0 text-muted-foreground">Trending now</span>
         <span className="min-w-0 truncate">
@@ -135,7 +135,7 @@ function Dashboard() {
           {TRENDING_SCAMS.map((t) => (
             <article key={t.title} className="panel p-5">
               <p className="flex items-center gap-2 text-[13px] text-muted-foreground">
-                <span className={cn("size-2 rounded-full", t.level === "Rising" ? "bg-lime" : "bg-destructive")} />
+                <span className={cn("size-2 rounded-full", t.level === "Rising" ? "bg-lime-strong" : "bg-destructive")} />
                 {t.level}
               </p>
               <h3 className="mt-3 text-base font-medium">{t.title}</h3>
@@ -190,7 +190,7 @@ function QuickScan() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Paste the SMS or WhatsApp message"
-          className="min-h-32 resize-none rounded-[10px] border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-link"
+          className="min-h-32 resize-none rounded-[10px] border border-input bg-field p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-link"
         />
         <Button type="submit" variant="scan" size="lg" disabled={text.trim().length < 3}>
           <FileText /> Check message

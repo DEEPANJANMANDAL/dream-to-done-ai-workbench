@@ -106,7 +106,7 @@ function ScreenshotPage() {
             <input ref={inputRef} type="file" accept="image/png,image/jpeg,image/webp" className="hidden" onChange={(e) => void pick(e.target.files?.[0])} />
             {preview ? (
               <div className="space-y-3">
-                <div className="relative overflow-hidden rounded-xl border border-border bg-background">
+                <div className="relative overflow-hidden rounded-xl border border-border bg-field">
                   <img src={preview} alt="Uploaded screenshot preview" className="mx-auto max-h-[420px] w-auto object-contain" />
                   <button
                     type="button"
@@ -115,7 +115,7 @@ function ScreenshotPage() {
                       setResult(null);
                       if (inputRef.current) inputRef.current.value = "";
                     }}
-                    className="absolute right-2 top-2 grid size-8 place-items-center rounded-lg border border-border bg-background/90 transition-colors hover:bg-surface-raised"
+                    className="absolute right-2 top-2 grid size-8 place-items-center rounded-lg border border-border bg-field/90 transition-colors hover:bg-surface-raised"
                     aria-label="Remove screenshot"
                   >
                     <X className="size-4" />
@@ -153,13 +153,13 @@ function ScreenshotPage() {
           <Panel>
             <PanelHeader icon={<FileText />} title="Text found in screenshot" subtitle={result ? `Source: ${result.source}` : "Read automatically from the image"} />
             {loading ? (
-              <div className="space-y-3 rounded-xl bg-background p-4" aria-hidden>
+              <div className="space-y-3 rounded-xl bg-field p-4" aria-hidden>
                 <Skeleton className="h-3 w-11/12" />
                 <Skeleton className="h-3 w-4/5" />
                 <Skeleton className="h-3 w-2/3" />
               </div>
             ) : result ? (
-              <pre className="max-h-64 animate-in fade-in-0 duration-300 overflow-auto whitespace-pre-wrap rounded-xl bg-background p-4 font-mono text-[13px] leading-relaxed">{result.extractedText || "No readable text found"}</pre>
+              <pre className="max-h-64 animate-in fade-in-0 duration-300 overflow-auto whitespace-pre-wrap rounded-xl bg-field p-4 font-mono text-[13px] leading-relaxed">{result.extractedText || "No readable text found"}</pre>
             ) : (
               <p className="rounded-xl border border-dashed border-border px-4 py-6 text-center text-[13px] text-muted-foreground">The text from your screenshot appears here</p>
             )}

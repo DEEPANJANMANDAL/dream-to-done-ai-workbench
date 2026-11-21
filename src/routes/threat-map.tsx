@@ -65,13 +65,13 @@ function ThreatMapPage() {
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         <Panel>
           <PanelHeader icon={<MapIcon />} title="State-wise scam trends" subtitle="Tap a state for details" action={<DataBadge kind={metric.kind} />} />
-          <div className="mb-4 flex flex-wrap gap-1 rounded-[10px] border border-border bg-background p-1">
+          <div className="mb-4 flex flex-wrap gap-1 rounded-[10px] border border-border bg-field p-1">
             {METRICS.map((m) => (
               <button
                 key={m.id}
                 type="button"
                 onClick={() => setMetricId(m.id)}
-                className={cn("flex-1 rounded-md px-3 py-2 text-[13px] font-medium transition-colors", metricId === m.id ? "bg-surface-raised text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]" : "text-muted-foreground hover:text-foreground")}
+                className={cn("flex-1 rounded-md px-3 py-2 text-[13px] font-medium transition-colors", metricId === m.id ? "bg-surface-raised text-primary shadow-[0_1px_2px_rgba(27,31,18,0.08)]" : "text-muted-foreground hover:text-foreground")}
               >
                 {m.label}
               </button>
@@ -99,7 +99,7 @@ function ThreatMapPage() {
                       <span className="font-mono text-xs text-subtle">{i + 1}</span>
                       <span className="min-w-0">
                         <span className="block truncate">{s.name}</span>
-                        <span className="mt-1 block h-1 overflow-hidden rounded-full bg-background">
+                        <span className="mt-1 block h-1 overflow-hidden rounded-full bg-surface-raised">
                           <span className={cn("block h-full rounded-full", selected === s.code ? "bg-primary" : "bg-subtle/60")} style={{ width: `${(value / max) * 100}%` }} />
                         </span>
                       </span>
@@ -197,14 +197,14 @@ function StateDetail({ s }: { s: StateRow }) {
           <BarChart data={data} margin={{ top: 8, right: 0, left: 0, bottom: 0 }}>
             <XAxis dataKey="year" tick={{ fill: "var(--subtle)", fontSize: 12, fontFamily: "var(--font-mono)" }} axisLine={false} tickLine={false} />
             <Tooltip
-              cursor={{ fill: "rgb(238 240 226 / 0.04)" }}
+              cursor={{ fill: "rgb(27 31 18 / 0.05)" }}
               contentStyle={{ background: "var(--popover)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12 }}
               labelStyle={{ color: "var(--foreground)" }}
               formatter={(v, _n, item) => [Number(v).toLocaleString("en-IN"), (item.payload as { kind: string }).kind === "estimated" ? "Estimated" : "Reported"]}
             />
             <Bar dataKey="value" radius={[4, 4, 0, 0]}>
               {data.map((d) => (
-                <Cell key={d.year} fill={d.year === "2023" ? "var(--lime)" : d.kind === "estimated" ? "var(--violet)" : "var(--primary)"} />
+                <Cell key={d.year} fill={d.year === "2023" ? "var(--lime)" : d.kind === "estimated" ? "var(--violet)" : "var(--chart-1)"} />
               ))}
             </Bar>
           </BarChart>

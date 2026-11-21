@@ -1,4 +1,4 @@
-const BAR_COLORS = ["bg-primary", "bg-link", "bg-violet", "bg-lime", "bg-subtle/60"];
+const BAR_COLORS = ["bg-chart-1", "bg-slate", "bg-violet", "bg-lime-strong", "bg-chart-5"];
 
 /** A share shown as a ranked list with thin bars, one brand color per row. */
 export function ShareList({ data, unit = "" }: { data: { name: string; value: number }[]; unit?: string }) {

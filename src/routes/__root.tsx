@@ -65,7 +65,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-field px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
             Go home
           </a>
@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "ScamShield — Check messages, links and screenshots for scams in India" },
       { name: "description", content: "Check SMS, WhatsApp messages, links and screenshots for scams, and see which scams are reaching people in India." },
       { name: "author", content: "ScamShield" },
-      { name: "theme-color", content: "#12160d" },
+      { name: "theme-color", content: "#acb686" },
       { property: "og:title", content: "ScamShield — Is this message a scam?" },
       { property: "og:description", content: "Check SMS, WhatsApp messages, links and screenshots for scams, and see which scams are reaching people in India." },
       { property: "og:type", content: "website" },
@@ -114,7 +114,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
