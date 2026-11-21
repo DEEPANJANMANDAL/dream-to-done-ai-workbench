@@ -45,9 +45,9 @@ export function IndiaTileMap({
             aria-label={`${s.name}: ${v.toLocaleString("en-IN")}`}
             aria-pressed={selected === s.code}
             className={cn(
-              "relative aspect-square rounded-md border text-center transition-transform",
-              compact ? "text-[8px] sm:text-[9px]" : "text-[9px] sm:text-xs",
-              active ? "z-10 scale-110 border-foreground" : "border-border/60",
+              "relative aspect-square rounded-md border text-center transition-colors",
+              compact ? "text-[10px]" : "text-[11px] sm:text-xs",
+              active ? "z-10 border-foreground" : "border-transparent",
               onSelect ? "cursor-pointer" : "cursor-default",
             )}
             style={{
@@ -56,7 +56,7 @@ export function IndiaTileMap({
               backgroundColor: `color-mix(in oklab, var(--destructive) ${Math.round(t * 85)}%, var(--surface-raised))`,
             }}
           >
-            <span className="absolute inset-0 grid place-items-center font-mono font-semibold text-foreground">{s.code}</span>
+            <span className="absolute inset-0 grid place-items-center font-mono text-foreground">{s.code}</span>
           </button>
         );
       })}
@@ -66,11 +66,11 @@ export function IndiaTileMap({
 
 export function MapLegend({ label }: { label: string }) {
   return (
-    <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+    <div className="flex items-center gap-2 font-mono text-xs text-subtle">
       <span>Low</span>
       <span className="h-1.5 w-20 rounded-full" style={{ backgroundImage: "linear-gradient(90deg, var(--surface-raised), var(--destructive))" }} />
       <span>High</span>
-      <span className="ml-1 truncate">· {label}</span>
+      <span className="ml-2 truncate font-sans text-[13px] text-muted-foreground">{label}</span>
     </div>
   );
 }

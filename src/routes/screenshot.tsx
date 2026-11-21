@@ -92,16 +92,15 @@ function ScreenshotPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
-      <PageIntro eyebrow="Text reading · Fake payments · QR codes" title="Screenshot Scam Detector" description="Upload a WhatsApp chat, SMS or 'payment done' screenshot. We read every word and spot fake payment proofs, scam QR codes and money requests." />
+      <PageIntro eyebrow="Screenshots · Payments · QR codes" title="Check a screenshot" description="Upload a WhatsApp chat, SMS or 'payment done' screenshot. We read every word and spot fake payment proofs, scam QR codes and money requests." />
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <div className="space-y-4">
           <Panel>
             <input ref={inputRef} type="file" accept="image/png,image/jpeg,image/webp" className="hidden" onChange={(e) => void pick(e.target.files?.[0])} />
             {preview ? (
               <div className="space-y-3">
-                <div className="relative overflow-hidden rounded-lg border border-border bg-background">
+                <div className="relative overflow-hidden rounded-xl border border-border bg-background">
                   <img src={preview} alt="Uploaded screenshot preview" className="mx-auto max-h-[420px] w-auto object-contain" />
-                  {loading && <div className="pointer-events-none absolute inset-x-0 top-0 h-1/4 animate-scan-line bg-gradient-to-b from-transparent via-primary/30 to-transparent" />}
                   <button
                     type="button"
                     onClick={() => {
@@ -109,15 +108,15 @@ function ScreenshotPage() {
                       setResult(null);
                       if (inputRef.current) inputRef.current.value = "";
                     }}
-                    className="absolute right-2 top-2 grid size-8 place-items-center rounded-full border border-border bg-background/80 backdrop-blur"
+                    className="absolute right-2 top-2 grid size-8 place-items-center rounded-lg border border-border bg-background/90 transition-colors hover:bg-surface-raised"
                     aria-label="Remove screenshot"
                   >
                     <X className="size-4" />
                   </button>
                 </div>
-                <p className="truncate text-xs text-muted-foreground">{fileName}</p>
+                <p className="truncate font-mono text-xs text-subtle">{fileName}</p>
                 <Button variant="scan" size="lg" className="w-full" onClick={() => void run()} disabled={loading}>
-                  <ScanLine /> {loading ? "Reading screenshot…" : "Analyse screenshot"}
+                  <ScanLine /> {loading ? "Reading the screenshot" : "Check screenshot"}
                 </Button>
               </div>
             ) : (
@@ -134,38 +133,36 @@ function ScreenshotPage() {
                   setDragging(false);
                   void pick(e.dataTransfer.files[0]);
                 }}
-                className={cn("grid-lines flex min-h-64 w-full flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed p-6 text-center transition-colors", dragging ? "border-primary bg-primary/10" : "border-border hover:border-primary")}
+                className={cn("flex min-h-64 w-full flex-col items-center justify-center gap-3 rounded-xl border border-dashed p-6 text-center transition-colors", dragging ? "border-primary bg-surface-raised" : "border-input hover:bg-surface-raised")}
               >
-                <span className="grid size-12 place-items-center rounded-full bg-primary/15 text-primary">
-                  <ImageUp className="size-6" />
-                </span>
-                <span className="text-sm font-medium">Tap to upload a screenshot</span>
-                <span className="text-xs text-muted-foreground">or drag & drop · PNG, JPG, WebP</span>
+                <ImageUp className="size-6 stroke-[1.5] text-subtle" />
+                <span className="text-[15px] font-medium">Tap to upload a screenshot</span>
+                <span className="text-[13px] text-muted-foreground">or drag it here · PNG, JPG or WebP</span>
               </button>
             )}
-            <p className="mt-3 text-[11px] text-muted-foreground">Screenshots are analysed and not stored by ScamShield. Crop out personal details if you can.</p>
+            <p className="mt-4 text-[13px] text-muted-foreground">Screenshots are checked and not stored by ScamShield. Crop out personal details if you can</p>
           </Panel>
 
           <Panel>
-            <PanelHeader icon={<FileText />} title="Text found in screenshot" subtitle={result ? `Source: ${result.source}` : "Read automatically"} />
+            <PanelHeader icon={<FileText />} title="Text found in screenshot" subtitle={result ? `Source: ${result.source}` : "Read automatically from the image"} />
             {result ? (
-              <pre className="max-h-64 overflow-auto whitespace-pre-wrap rounded-lg bg-background/60 p-3 font-mono text-xs leading-relaxed">{result.extractedText || "No readable text found."}</pre>
+              <pre className="max-h-64 overflow-auto whitespace-pre-wrap rounded-xl bg-background p-4 font-mono text-[13px] leading-relaxed">{result.extractedText || "No readable text found"}</pre>
             ) : (
-              <p className="grid-lines rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted-foreground">Extracted text will appear here.</p>
+              <p className="rounded-xl border border-dashed border-border px-4 py-6 text-center text-[13px] text-muted-foreground">The text from your screenshot appears here</p>
             )}
           </Panel>
         </div>
 
-        <VerdictPanel result={result} loading={loading} error={error} emptyText="Upload a screenshot to get a verdict.">
+        <VerdictPanel result={result} loading={loading} error={error} emptyText="Upload a screenshot to get a verdict">
           {result && (
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {DETECTIONS.map((d) => {
                 const hit = result.detected[d.key];
                 return (
-                  <div key={d.key} className={cn("flex items-center gap-2 rounded-lg border px-3 py-2 text-xs", hit ? "border-destructive/40 bg-destructive/10" : "border-border bg-surface-raised text-muted-foreground")}>
-                    <d.icon className={cn("size-4 shrink-0", hit ? "text-destructive" : "")} />
+                  <div key={d.key} className={cn("flex items-center gap-2 rounded-lg border px-3 py-2 text-[13px]", hit ? "border-destructive/40 bg-surface-raised" : "border-border text-muted-foreground")}>
+                    <d.icon className={cn("size-4 shrink-0 stroke-[1.5]", hit ? "text-destructive" : "text-subtle")} />
                     <span className="min-w-0 flex-1 truncate">{d.label}</span>
-                    <span className={cn("font-semibold", hit ? "text-destructive" : "text-safe")}>{hit ? "Yes" : "No"}</span>
+                    <span className={cn("font-medium", hit ? "text-destructive" : "text-subtle")}>{hit ? "Yes" : "No"}</span>
                   </div>
                 );
               })}

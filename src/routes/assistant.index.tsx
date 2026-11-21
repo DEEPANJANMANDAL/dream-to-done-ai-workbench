@@ -24,9 +24,9 @@ function AssistantHome() {
     <div className="flex flex-1 flex-col overflow-y-auto p-4 sm:p-8">
       <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center">
         <div className="text-center">
-          <LogoMark className="mx-auto size-14" />
-          <h1 className="mt-4 text-2xl font-bold sm:text-3xl">AI Cyber Safety Assistant</h1>
-          <p className="mt-2 text-sm text-muted-foreground">Ask about a call, message, UPI ID or link. Any language works — Hindi, Hinglish, Tamil and more.</p>
+          <LogoMark className="mx-auto size-8" />
+          <h1 className="mt-4 text-[28px] font-medium leading-tight sm:text-[32px]">Ask about a call, message or link</h1>
+          <p className="mt-2 text-[15px] text-muted-foreground">Any UPI ID, OTP request or suspicious call. Ask in Hindi, Hinglish, Tamil or any language you like</p>
         </div>
         <div className="mt-6 grid gap-2 sm:grid-cols-2">
           {STARTER_PROMPTS.map((p) => (
@@ -34,7 +34,7 @@ function AssistantHome() {
               key={p}
               type="button"
               onClick={() => start(p)}
-              className="rounded-lg border border-border bg-surface-raised px-3 py-2.5 text-left text-sm transition-colors hover:border-primary"
+              className="rounded-xl border border-border px-4 py-3 text-left text-sm text-muted-foreground transition-colors hover:bg-surface-raised hover:text-foreground"
             >
               {p}
             </button>
@@ -42,12 +42,12 @@ function AssistantHome() {
         </div>
         <div className="mt-6">
           <PromptInput onSubmit={(m) => start(m.text)}>
-            <PromptInputTextarea autoFocus placeholder="Ask anything about scams or online safety…" onChange={(e) => setText(e.target.value)} />
+            <PromptInputTextarea autoFocus placeholder="Ask a question" onChange={(e) => setText(e.target.value)} />
             <PromptInputFooter className="justify-end">
               <PromptInputSubmit disabled={!text.trim()} />
             </PromptInputFooter>
           </PromptInput>
-          <p className="mt-2 text-center text-[11px] text-muted-foreground">Guidance only, not legal advice. Lost money? Call 1930 right away.</p>
+          <p className="mt-2 text-center text-xs text-subtle">Guidance only, not legal advice. Lost money? Call 1930 right away</p>
         </div>
       </div>
     </div>

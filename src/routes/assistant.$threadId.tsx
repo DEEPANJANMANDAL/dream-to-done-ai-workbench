@@ -135,20 +135,20 @@ function ChatWindow({ threadId }: { threadId: string }) {
   return (
     <>
       <div className="flex items-center gap-2.5 border-b border-border px-4 py-3">
-        <LogoMark className="size-7" />
+        <LogoMark className="size-5" />
         <div className="min-w-0">
-          <p className="truncate text-sm font-semibold">{thread?.title ?? "Conversation"}</p>
-          <p className="text-[11px] text-muted-foreground">ScamShield safety assistant</p>
+          <p className="truncate text-sm font-medium">{thread?.title ?? "Conversation"}</p>
+          <p className="text-xs text-subtle">ScamShield safety assistant</p>
         </div>
       </div>
       <Conversation className="min-h-0 flex-1">
         <ConversationContent className="mx-auto w-full max-w-3xl">
           {messages.length === 0 && !busy && (
             <div className="py-10 text-center">
-              <p className="text-sm text-muted-foreground">Ask your question below, or try one of these:</p>
+              <p className="text-sm text-muted-foreground">Ask your question below, or try one of these</p>
               <div className="mt-4 flex flex-wrap justify-center gap-2">
                 {STARTER_PROMPTS.slice(0, 4).map((p) => (
-                  <button key={p} type="button" onClick={() => void send(p)} className="rounded-full border border-border bg-surface-raised px-3 py-1.5 text-xs transition-colors hover:border-primary">
+                  <button key={p} type="button" onClick={() => void send(p)} className="rounded-lg border border-border px-3 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-surface-raised hover:text-foreground">
                     {p}
                   </button>
                 ))}
@@ -169,7 +169,7 @@ function ChatWindow({ threadId }: { threadId: string }) {
           {status === "submitted" && (
             <Message from="assistant">
               <MessageContent>
-                <Shimmer>Checking scam patterns…</Shimmer>
+                <Shimmer>Checking scam patterns</Shimmer>
               </MessageContent>
             </Message>
           )}
@@ -180,7 +180,7 @@ function ChatWindow({ threadId }: { threadId: string }) {
               </MessageContent>
             </Message>
           )}
-          {error && <p className="rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</p>}
+          {error && <p className="rounded-lg border border-warning/30 px-3 py-2 text-sm text-warning">{error}</p>}
         </ConversationContent>
         <ConversationScrollButton />
       </Conversation>
@@ -192,12 +192,12 @@ function ChatWindow({ threadId }: { threadId: string }) {
               void send(m.text);
             }}
           >
-            <PromptInputTextarea ref={textareaRef} autoFocus placeholder="Ask a follow-up…" onChange={(e) => setInput(e.target.value)} />
+            <PromptInputTextarea ref={textareaRef} autoFocus placeholder="Ask a follow-up" onChange={(e) => setInput(e.target.value)} />
             <PromptInputFooter className="justify-end">
               <PromptInputSubmit status={status} disabled={!busy && !input.trim()} onStop={() => abortRef.current?.abort()} />
             </PromptInputFooter>
           </PromptInput>
-          <p className="mt-1.5 text-center text-[10px] text-muted-foreground">Guidance only, not legal advice. Lost money? Call 1930.</p>
+          <p className="mt-2 text-center text-xs text-subtle">Guidance only, not legal advice. Lost money? Call 1930</p>
         </div>
       </div>
     </>

@@ -98,12 +98,12 @@ export const SCAM_TYPE_ESTIMATE = [
 ];
 
 export const TRENDING_SCAMS = [
-  { emoji: "⚡", title: "Electricity Bill Disconnect", desc: "Power cut tonight at 9:30 PM — call the 'officer' and install a remote app.", level: "Very active" },
-  { emoji: "💌", title: "APK Wedding Invite", desc: "WhatsApp 'wedding card' .apk silently steals SMS OTPs.", level: "Very active" },
-  { emoji: "📵", title: "TRAI SIM Block", desc: "Your SIM will be blocked in 2 hours, then transfers to fake police.", level: "Very active" },
-  { emoji: "🚔", title: "Digital Arrest", desc: "Fake CBI officers keep victims on video call demanding money.", level: "Very active" },
-  { emoji: "📈", title: "Stock Market Groups", desc: "Fake SEBI advisors push trading apps with guaranteed returns.", level: "Rising" },
-  { emoji: "🚦", title: "Fake Traffic Challan", desc: "SMS link to pay an e-challan on a lookalike site.", level: "Rising" },
+  { title: "Electricity bill disconnect", desc: "Power cut tonight at 9:30 PM, call the 'officer' and install a remote app", level: "Very active" },
+  { title: "APK wedding invite", desc: "A WhatsApp 'wedding card' .apk silently steals SMS OTPs", level: "Very active" },
+  { title: "TRAI SIM block", desc: "Your SIM will be blocked in 2 hours, then a transfer to fake police", level: "Very active" },
+  { title: "Digital arrest", desc: "Fake CBI officers keep victims on a video call demanding money", level: "Very active" },
+  { title: "Stock market groups", desc: "Fake SEBI advisors push trading apps with guaranteed returns", level: "Rising" },
+  { title: "Fake traffic challan", desc: "An SMS link to pay an e-challan on a look-alike site", level: "Rising" },
 ] as const;
 
 export const NATIONAL_TOTAL_2023 = 86420;

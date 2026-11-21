@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { ArrowDown, Globe, Link2, ListChecks, Lock, Route as RouteIcon, ScanLine, Sparkle } from "lucide-react";
+import { ArrowDown, Globe, Link2, ListChecks, Lock, Route as RouteIcon, ScanLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageIntro, Panel, PanelHeader, StatusTag } from "@/components/shield/ui";
 import { VerdictPanel } from "@/components/shield/VerdictPanel";
@@ -53,7 +53,7 @@ function UrlScannerPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
-      <PageIntro eyebrow="Phishing · Redirects · SSL" title="Advanced URL Scanner" description="Paste a link before you tap it. We check the domain, follow every redirect, test the security certificate and flag look-alike banking sites." />
+      <PageIntro eyebrow="Links · Redirects · Certificates" title="Check a link before you tap it" description="We check the domain, follow every redirect, test the security certificate and flag look-alike banking sites." />
 
       <Panel>
         <form
@@ -63,8 +63,8 @@ function UrlScannerPage() {
           }}
           className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]"
         >
-          <div className="flex min-w-0 items-center gap-2 rounded-lg border border-input bg-background/60 px-3 focus-within:border-primary">
-            <Link2 className="size-4 shrink-0 text-muted-foreground" />
+          <div className="flex min-w-0 items-center gap-3 rounded-[10px] border border-input bg-background px-3 transition-colors focus-within:border-primary">
+            <Link2 className="size-4 shrink-0 stroke-[1.5] text-subtle" />
             <label htmlFor="url" className="sr-only">Link to check</label>
             <input
               id="url"
@@ -73,18 +73,18 @@ function UrlScannerPage() {
               inputMode="url"
               autoComplete="off"
               spellCheck={false}
-              placeholder="Paste a suspicious link, e.g. sbi-reward.xyz/claim"
-              className="h-11 min-w-0 flex-1 bg-transparent font-mono text-sm outline-none placeholder:font-sans placeholder:text-muted-foreground"
+              placeholder="Paste the link"
+              className="h-11 min-w-0 flex-1 bg-transparent font-mono text-sm outline-none placeholder:font-sans placeholder:text-subtle"
             />
           </div>
           <Button type="submit" variant="scan" size="lg" disabled={loading || url.trim().length < 3}>
-            <ScanLine /> {loading ? "Scanning…" : "Scan link"}
+            <ScanLine /> {loading ? "Checking" : "Check link"}
           </Button>
         </form>
-        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-          <span className="text-muted-foreground">Try:</span>
+        <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px]">
+          <span className="text-muted-foreground">Try</span>
           {SAMPLES.map((s) => (
-            <button key={s} type="button" onClick={() => setUrl(s)} className="rounded-full border border-border bg-surface-raised px-2.5 py-1 font-mono text-[11px] transition-colors hover:border-primary">
+            <button key={s} type="button" onClick={() => setUrl(s)} className="rounded-lg border border-border bg-surface-raised px-2.5 py-1 font-mono text-xs transition-colors hover:border-input hover:bg-[#2a2a2d]">
               {s}
             </button>
           ))}
@@ -92,14 +92,14 @@ function UrlScannerPage() {
       </Panel>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
-        <VerdictPanel result={result} loading={loading} error={error} emptyText="Your link verdict will appear here.">
+        <VerdictPanel result={result} loading={loading} error={error} emptyText="The verdict for the link appears here">
           {result && (
-            <div className="rounded-lg border border-border bg-surface-raised p-3 text-xs">
+            <div className="rounded-xl border border-border bg-surface-raised p-4 text-[13px]">
               <div className="flex items-center gap-2 text-muted-foreground">
-                <Globe className="size-3.5" /> Domain
+                <Globe className="size-4 stroke-[1.5]" /> Domain
               </div>
               <p className="mt-1 break-all font-mono text-sm">{result.hostname}</p>
-              {!result.aiAvailable && <p className="mt-2 text-warning">AI explanation unavailable — showing automated checks only.</p>}
+              {!result.aiAvailable && <p className="mt-2 text-warning">The written explanation is unavailable, so this shows the automated checks only</p>}
             </div>
           )}
         </VerdictPanel>
@@ -110,20 +110,20 @@ function UrlScannerPage() {
             {result ? (
               <ul className="divide-y divide-border/60">
                 {result.checks.map((c, i) => (
-                  <li key={`${c.id}-${i}`} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 py-2.5">
+                  <li key={`${c.id}-${i}`} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 py-3">
                     <div className="min-w-0">
-                      <p className="flex items-center gap-1.5 text-sm font-medium">
-                        {c.id === "ssl" ? <Lock className="size-3.5 shrink-0 text-muted-foreground" /> : null}
+                      <p className="flex items-center gap-2 text-sm font-medium">
+                        {c.id === "ssl" ? <Lock className="size-4 shrink-0 stroke-[1.5] text-subtle" /> : null}
                         {c.label}
                       </p>
-                      <p className="text-xs text-muted-foreground">{c.detail}</p>
+                      <p className="mt-0.5 text-[13px] text-muted-foreground">{c.detail}</p>
                     </div>
                     <StatusTag status={c.status} />
                   </li>
                 ))}
               </ul>
             ) : (
-              <Placeholder text="Checks appear after a scan." />
+              <Placeholder text="Checks appear after you check a link" />
             )}
           </Panel>
 
@@ -133,32 +133,32 @@ function UrlScannerPage() {
               <ol className="space-y-1">
                 {result.redirects.map((r, i) => (
                   <li key={`${r.url}-${i}`}>
-                    <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 rounded-md bg-surface-raised px-3 py-2">
-                      <span className={`rounded px-1.5 py-0.5 font-mono text-[10px] ${r.status >= 300 && r.status < 400 ? "bg-warning/15 text-warning" : r.status < 300 ? "bg-safe/15 text-safe" : "bg-destructive/15 text-destructive"}`}>{r.status}</span>
+                    <div className="grid grid-cols-[32px_minmax(0,1fr)] items-center gap-2 rounded-lg bg-surface-raised px-3 py-2">
+                      <span className={`font-mono text-xs ${r.status >= 300 && r.status < 400 ? "text-warning" : r.status < 300 ? "text-safe" : "text-destructive"}`}>{r.status}</span>
                       <span className="truncate font-mono text-xs">{r.url}</span>
                     </div>
-                    {i < result.redirects.length - 1 && <ArrowDown className="mx-auto my-0.5 size-3 text-muted-foreground" />}
+                    {i < result.redirects.length - 1 && <ArrowDown className="mx-auto my-1 size-4 stroke-[1.5] text-subtle" />}
                   </li>
                 ))}
               </ol>
             ) : (
-              <Placeholder text={result ? "The site could not be opened, so no redirects were recorded." : "Every hop the link takes will be listed here."} />
+              <Placeholder text={result ? "The site could not be opened, so no redirects were recorded" : "Every hop the link takes is listed here"} />
             )}
           </Panel>
 
           <Panel>
-            <PanelHeader icon={<Sparkle />} title="Why this URL looks the way it does" subtitle="AI explanation of suspicious patterns" />
+            <PanelHeader icon={<ListChecks />} title="What each part of the link means" subtitle="Plain-language notes on the domain, path and query" />
             {result && result.patterns.length > 0 ? (
               <ul className="space-y-2">
                 {result.patterns.map((p) => (
-                  <li key={p.pattern} className="rounded-lg border border-border bg-surface-raised p-3">
-                    <code className="break-all font-mono text-xs text-primary">{p.pattern}</code>
-                    <p className="mt-1 text-sm text-muted-foreground">{p.explanation}</p>
+                  <li key={p.pattern} className="rounded-xl border border-border bg-surface-raised p-4">
+                    <code className="break-all font-mono text-[13px] text-foreground">{p.pattern}</code>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{p.explanation}</p>
                   </li>
                 ))}
               </ul>
             ) : (
-              <Placeholder text="Plain-language notes on each part of the link appear here." />
+              <Placeholder text="Notes on each part of the link appear here" />
             )}
           </Panel>
         </div>
@@ -168,5 +168,5 @@ function UrlScannerPage() {
 }
 
 function Placeholder({ text }: { text: string }) {
-  return <p className="grid-lines rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted-foreground">{text}</p>;
+  return <p className="rounded-xl border border-dashed border-border px-4 py-6 text-center text-[13px] text-muted-foreground">{text}</p>;
 }

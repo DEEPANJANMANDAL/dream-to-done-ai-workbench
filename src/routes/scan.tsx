@@ -26,10 +26,10 @@ export const Route = createFileRoute("/scan")({
 });
 
 const SAMPLES = [
-  { label: "🏦 Bank KYC", text: "Dear SBI user, your KYC has expired and your account will be blocked today. Update now: http://sbi-kyc-update.online/verify" },
-  { label: "💸 UPI trap", text: "Hi, I sent ₹5,000 to your number by mistake. Please accept the collect request I sent on PhonePe and enter your PIN to receive it back." },
-  { label: "📱 Task job", text: "Part-time job! Earn ₹3000-₹8000 daily by rating hotels on Google. No experience. WhatsApp HR Neha: wa.me/91XXXXXXXXXX" },
-  { label: "✅ Genuine", text: "Your OTP for login to HDFC Bank NetBanking is 482913. Valid for 5 mins. Do not share it with anyone. -HDFC Bank" },
+  { label: "Bank KYC", sender: "VM-SBIKYC", text: "Dear SBI user, your KYC has expired and your account will be blocked today. Update now: http://sbi-kyc-update.online/verify" },
+  { label: "UPI collect trap", sender: "+91 93321 XXXXX", text: "Hi, I sent ₹5,000 to your number by mistake. Please accept the collect request I sent on PhonePe and enter your PIN to receive it back." },
+  { label: "Task job", sender: "+91 70214 XXXXX", text: "Part-time job! Earn ₹3000-₹8000 daily by rating hotels on Google. No experience. WhatsApp HR Neha: wa.me/91XXXXXXXXXX" },
+  { label: "Genuine OTP", sender: "AX-HDFCBK", text: "Your OTP for login to HDFC Bank NetBanking is 482913. Valid for 5 mins. Do not share it with anyone. -HDFC Bank" },
 ];
 
 function ScanPage() {
@@ -39,6 +39,8 @@ function ScanPage() {
   const [result, setResult] = useState<BaseVerdict | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sender, setSender] = useState("Pasted message");
+  const [checked, setChecked] = useState<{ sender: string; text: string } | null>(null);
   const autoRan = useRef(false);
 
   async function run(value: string) {
@@ -50,6 +52,7 @@ function ScanPage() {
     try {
       const res = await scan({ data: { text: v } });
       if (res.ok) {
+        setChecked({ sender, text: v });
         setResult(res.result);
         addHistory({ kind: "message", title: v.slice(0, 90), verdict: res.result.verdict, riskScore: res.result.riskScore, category: res.result.category });
       } else setError(res.error);
@@ -70,7 +73,7 @@ function ScanPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
-      <PageIntro eyebrow="Built for India · Any language" title="Is this message a scam?" description="Paste any SMS, WhatsApp forward or UPI request. Get an instant verdict with clear next steps." />
+      <PageIntro eyebrow="Messages · Any Indian language" title="Is this message a scam?" description="Paste any SMS, WhatsApp forward or UPI request to get a verdict and clear next steps." />
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
         <Panel className="h-fit">
           <form
@@ -84,27 +87,34 @@ function ScanPage() {
             <textarea
               id="msg"
               value={text}
-              onChange={(e) => setText(e.target.value.slice(0, 6000))}
-              placeholder="Paste the suspicious message here…"
-              className="min-h-48 w-full resize-y rounded-lg border border-input bg-background/60 p-3 text-sm outline-none placeholder:text-muted-foreground focus:border-primary"
+              onChange={(e) => {
+                setText(e.target.value.slice(0, 6000));
+                setSender("Pasted message");
+              }}
+              placeholder="Paste the message"
+              className="min-h-48 w-full resize-y rounded-xl border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-primary"
             />
-            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-              <span>Try a sample:</span>
-              <span className="font-mono">{text.length.toLocaleString("en-IN")} / 6,000</span>
+            <div className="flex items-center justify-between text-[13px] text-muted-foreground">
+              <span>Try a sample</span>
+              <span className="font-mono text-xs tabular-nums text-subtle">{text.length.toLocaleString("en-IN")} / 6,000</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {SAMPLES.map((s) => (
-                <button key={s.label} type="button" onClick={() => setText(s.text)} className="rounded-full border border-border bg-surface-raised px-3 py-1 text-xs transition-colors hover:border-primary">
+                <button key={s.label} type="button" onClick={() => {
+                    setText(s.text);
+                    setSender(s.sender);
+                  }}
+                  className="rounded-lg border border-border bg-surface-raised px-3 py-1.5 text-[13px] transition-colors hover:border-input hover:bg-[#2a2a2d]">
                   {s.label}
                 </button>
               ))}
             </div>
             <Button type="submit" variant="scan" size="lg" className="w-full" disabled={loading || text.trim().length < 3}>
-              <ScanLine /> {loading ? "Scanning…" : "Scan message"}
+              <ScanLine /> {loading ? "Checking" : "Check message"}
             </Button>
           </form>
         </Panel>
-        <VerdictPanel result={result} loading={loading} error={error} emptyText="Your risk verdict will appear here." />
+        <VerdictPanel result={result} loading={loading} error={error} emptyText="The verdict appears here, with the warning signs and what to do next" message={checked ?? undefined} />
       </div>
     </div>
   );

@@ -32,11 +32,11 @@ function AssistantLayout() {
       <aside className="panel flex min-w-0 flex-col p-3 lg:h-[calc(100dvh-8rem)]">
         <div className="mb-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
           <h2 className="flex items-center gap-2 truncate text-sm font-semibold">
-            <MessagesSquare className="size-4 shrink-0 text-primary" /> Conversations
+            <MessagesSquare className="size-4 shrink-0 stroke-[1.5] text-subtle" /> Conversations
           </h2>
           <Button
             size="sm"
-            variant="scan"
+            variant="secondary"
             onClick={() => {
               const id = createThread();
               void navigate({ to: "/assistant/$threadId", params: { threadId: id } });
@@ -46,7 +46,7 @@ function AssistantLayout() {
           </Button>
         </div>
         {sorted.length === 0 ? (
-          <p className="px-1 py-3 text-xs text-muted-foreground">No conversations yet. Ask your first question.</p>
+          <p className="px-1 py-3 text-[13px] text-muted-foreground">No conversations yet</p>
         ) : (
           <ul className="scrollbar-none flex gap-1.5 overflow-x-auto pb-1 lg:flex-col lg:overflow-y-auto lg:overflow-x-visible">
             {sorted.map((t) => (
@@ -54,12 +54,12 @@ function AssistantLayout() {
                 key={t.id}
                 className={cn(
                   "group flex w-56 shrink-0 items-center gap-1 rounded-md border border-transparent transition-colors lg:w-auto",
-                  t.id === activeId ? "border-primary/40 bg-primary/15" : "hover:bg-secondary",
+                  t.id === activeId ? "border-border bg-surface-raised" : "hover:bg-surface-raised",
                 )}
               >
                 <Link to="/assistant/$threadId" params={{ threadId: t.id }} className="min-w-0 flex-1 px-2.5 py-2">
                   <span className="block truncate text-sm">{t.title}</span>
-                  <span className="block text-[10px] text-muted-foreground">{formatDistanceToNow(t.updatedAt, { addSuffix: true })}</span>
+                  <span className="block text-xs text-subtle">{formatDistanceToNow(t.updatedAt, { addSuffix: true })}</span>
                 </Link>
                 <button
                   type="button"
@@ -68,15 +68,15 @@ function AssistantLayout() {
                     deleteThread(t.id);
                     if (t.id === activeId) void navigate({ to: "/assistant" });
                   }}
-                  className="mr-1 grid size-7 shrink-0 place-items-center rounded text-muted-foreground opacity-70 hover:bg-destructive/15 hover:text-destructive group-hover:opacity-100"
+                  className="mr-1 grid size-7 shrink-0 place-items-center rounded text-muted-foreground opacity-0 transition-[opacity,color] hover:text-destructive focus-visible:opacity-100 group-hover:opacity-100"
                 >
-                  <Trash2 className="size-3.5" />
+                  <Trash2 className="size-4 stroke-[1.5]" />
                 </button>
               </li>
             ))}
           </ul>
         )}
-        <p className="mt-auto hidden pt-3 text-[10px] text-muted-foreground lg:block">Conversations are saved only in this browser.</p>
+        <p className="mt-auto hidden pt-3 text-xs text-subtle lg:block">Saved only in this browser</p>
       </aside>
       <section className="panel flex min-h-[70dvh] min-w-0 flex-col overflow-hidden lg:h-[calc(100dvh-8rem)] lg:min-h-0">
         <Outlet />

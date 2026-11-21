@@ -10,15 +10,16 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * ScamShield "command center" design system.
- * Deep navy surfaces, electric-blue primary, violet scan accent,
- * semantic risk colors (safe / warning / danger / info).
+ * ScamShield design system: calm and plain-spoken.
+ * One graphite ramp for every surface, one sky-blue accent for focus,
+ * selection and the figure that matters. Red, amber and green only ever
+ * mean scam, suspicious and safe.
  */
 
 @theme inline {
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "IBM Plex Sans", "IBM Plex Sans Devanagari", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -72,6 +73,7 @@
   --color-violet-foreground: var(--violet-foreground);
   --color-chat-user: var(--chat-user);
   --color-chat-user-foreground: var(--chat-user-foreground);
+  --color-subtle: var(--subtle);
 
   --shadow-glow: var(--shadow-glow-value);
   --shadow-danger: var(--shadow-danger-value);
@@ -81,80 +83,73 @@
 :root,
 .dark {
   --radius: 0.75rem;
-  --background: oklch(0.145 0.022 262);
-  --foreground: oklch(0.95 0.01 255);
-  --surface: oklch(0.175 0.025 262);
-  --surface-raised: oklch(0.205 0.028 262);
-  --card: oklch(0.175 0.025 262);
-  --card-foreground: oklch(0.95 0.01 255);
-  --popover: oklch(0.2 0.028 262);
-  --popover-foreground: oklch(0.95 0.01 255);
-  --primary: oklch(0.62 0.17 252);
-  --primary-foreground: oklch(0.985 0.005 255);
-  --secondary: oklch(0.235 0.03 262);
-  --secondary-foreground: oklch(0.92 0.01 255);
-  --muted: oklch(0.22 0.026 262);
-  --muted-foreground: oklch(0.68 0.03 258);
-  --accent: oklch(0.26 0.04 262);
-  --accent-foreground: oklch(0.96 0.01 255);
-  --destructive: oklch(0.64 0.21 22);
-  --destructive-foreground: oklch(0.985 0.005 20);
-  --safe: oklch(0.74 0.16 158);
-  --safe-foreground: oklch(0.18 0.04 158);
-  --warning: oklch(0.8 0.16 72);
-  --warning-foreground: oklch(0.2 0.05 72);
-  --info: oklch(0.78 0.13 210);
-  --violet: oklch(0.6 0.2 288);
-  --violet-foreground: oklch(0.985 0.005 288);
-  --chat-user: oklch(0.62 0.17 252);
-  --chat-user-foreground: oklch(0.985 0.005 255);
-  --border: oklch(0.29 0.03 262);
-  --input: oklch(0.3 0.03 262);
-  --ring: oklch(0.62 0.17 252);
-  --chart-1: oklch(0.62 0.17 252);
-  --chart-2: oklch(0.78 0.13 210);
-  --chart-3: oklch(0.64 0.21 22);
-  --chart-4: oklch(0.8 0.16 72);
-  --chart-5: oklch(0.6 0.2 288);
-  --sidebar: oklch(0.175 0.025 262);
-  --sidebar-foreground: oklch(0.95 0.01 255);
-  --sidebar-primary: oklch(0.62 0.17 252);
-  --sidebar-primary-foreground: oklch(0.985 0.005 255);
-  --sidebar-accent: oklch(0.235 0.03 262);
-  --sidebar-accent-foreground: oklch(0.95 0.01 255);
-  --sidebar-border: oklch(0.29 0.03 262);
-  --sidebar-ring: oklch(0.62 0.17 252);
 
-  --gradient-scan: linear-gradient(110deg, var(--primary), var(--violet));
-  --gradient-gauge: conic-gradient(from 270deg, var(--safe), var(--warning), var(--destructive));
-  --gradient-backdrop:
-    radial-gradient(60rem 30rem at 15% -10%, color-mix(in oklab, var(--primary) 16%, transparent), transparent 70%),
-    radial-gradient(40rem 24rem at 95% 0%, color-mix(in oklab, var(--violet) 12%, transparent), transparent 70%);
-  --shadow-glow-value: 0 8px 28px -10px color-mix(in oklab, var(--primary) 70%, transparent);
-  --shadow-danger-value: 0 8px 28px -10px color-mix(in oklab, var(--destructive) 70%, transparent);
-  --shadow-panel-value: 0 1px 0 0 color-mix(in oklab, var(--foreground) 4%, transparent) inset, 0 20px 40px -24px oklch(0 0 0 / 0.6);
-}
+  /* Graphite ramp */
+  --background: #141415;
+  --foreground: #ededed;
+  --surface: #19191b;
+  --surface-raised: #232325;
+  --card: #19191b;
+  --card-foreground: #ededed;
+  --popover: #1e1e20;
+  --popover-foreground: #ededed;
+  --secondary: #232325;
+  --secondary-foreground: #ededed;
+  --muted: #1e1e20;
+  --muted-foreground: #a1a1a6;
+  --subtle: #85858b;
+  --accent: #232325;
+  --accent-foreground: #ededed;
+  --border: rgb(237 237 237 / 0.08);
+  --input: rgb(237 237 237 / 0.12);
 
-@utility bg-gradient-scan {
-  background-image: var(--gradient-scan);
-}
+  /* Accent: sky blue, dark text on it */
+  --primary: #6cb4f5;
+  --primary-foreground: #0c1620;
+  --ring: #6cb4f5;
 
-@utility bg-backdrop {
-  background-image: var(--gradient-backdrop);
+  /* Verdicts */
+  --destructive: #e5484d;
+  --destructive-foreground: #ffffff;
+  --safe: #4cc38a;
+  --safe-foreground: #0d1f16;
+  --warning: #e5a03b;
+  --warning-foreground: #1f1405;
+  --info: #6cb4f5;
+
+  /* Estimates are quiet grey, never a second hue */
+  --violet: #a1a1a6;
+  --violet-foreground: #141415;
+
+  --chat-user: #232325;
+  --chat-user-foreground: #ededed;
+
+  /* Charts: one accent, the rest neutral steps */
+  --chart-1: #6cb4f5;
+  --chart-2: #8a8a90;
+  --chart-3: #6a6a70;
+  --chart-4: #4e4e54;
+  --chart-5: #3a3a3f;
+
+  --sidebar: #0f0f10;
+  --sidebar-foreground: #ededed;
+  --sidebar-primary: #6cb4f5;
+  --sidebar-primary-foreground: #0c1620;
+  --sidebar-accent: #232325;
+  --sidebar-accent-foreground: #ededed;
+  --sidebar-border: rgb(237 237 237 / 0.08);
+  --sidebar-ring: #6cb4f5;
+
+  --shadow-glow-value: none;
+  --shadow-danger-value: none;
+  --shadow-panel-value: none;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @utility panel {
   border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
   background-color: var(--color-surface);
-  box-shadow: var(--shadow-panel-value);
-}
-
-@utility grid-lines {
-  background-image:
-    linear-gradient(color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px);
-  background-size: 28px 28px;
 }
 
 @utility scrollbar-none {
@@ -162,33 +157,6 @@
   &::-webkit-scrollbar {
     display: none;
   }
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.75); }
-}
-
-@keyframes scan-line {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(400%); }
-}
-
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-@utility animate-pulse-dot {
-  animation: pulse-dot 1.6s ease-in-out infinite;
-}
-
-@utility animate-scan-line {
-  animation: scan-line 1.8s linear infinite;
-}
-
-@utility animate-ticker {
-  animation: ticker 40s linear infinite;
 }
 
 @layer base {
@@ -208,7 +176,18 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
