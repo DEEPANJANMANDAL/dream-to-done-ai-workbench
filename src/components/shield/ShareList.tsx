@@ -1,4 +1,6 @@
-/** A share shown as a ranked list with thin bars. The largest share leads in the accent, the rest stay neutral. */
+const BAR_COLORS = ["bg-primary", "bg-link", "bg-violet", "bg-lime", "bg-subtle/60"];
+
+/** A share shown as a ranked list with thin bars, one brand color per row. */
 export function ShareList({ data, unit = "" }: { data: { name: string; value: number }[]; unit?: string }) {
   const total = data.reduce((s, d) => s + d.value, 0);
   const rows = [...data].sort((a, b) => b.value - a.value);
@@ -14,7 +16,7 @@ export function ShareList({ data, unit = "" }: { data: { name: string; value: nu
             </span>
           </div>
           <div className="mt-2 h-1 overflow-hidden rounded-full bg-surface-raised">
-            <div className={i === 0 ? "h-full rounded-full bg-primary" : "h-full rounded-full bg-subtle/60"} style={{ width: `${(d.value / max) * 100}%` }} />
+            <div className={`h-full rounded-full ${BAR_COLORS[Math.min(i, BAR_COLORS.length - 1)]}`} style={{ width: `${(d.value / max) * 100}%` }} />
           </div>
         </li>
       ))}

@@ -98,7 +98,7 @@ function ScanPage() {
                 setSender("Pasted message");
               }}
               placeholder="Paste the message"
-              className="min-h-48 w-full resize-y rounded-[10px] border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-primary"
+              className="min-h-48 w-full resize-y rounded-[10px] border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-link"
             />
             <div className="flex items-center justify-between text-[13px] text-muted-foreground">
               <span>Try a sample</span>

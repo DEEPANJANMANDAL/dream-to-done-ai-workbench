@@ -16,7 +16,7 @@ export function RecentScans({ limit = 8 }: { limit?: number }) {
     return (
       <div className="rounded-xl border border-dashed border-border px-4 py-10 text-center">
         <p className="text-sm text-muted-foreground">No scans yet on this device.</p>
-        <Link to="/scan" className="mt-2 inline-block text-sm font-medium text-primary hover:underline">
+        <Link to="/scan" className="mt-2 inline-block text-sm font-medium text-link hover:underline">
           Check your first message
         </Link>
       </div>

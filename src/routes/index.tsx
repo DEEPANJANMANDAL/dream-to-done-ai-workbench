@@ -31,9 +31,9 @@ export const Route = createFileRoute("/")({
 });
 
 const TOOLS = [
-  { to: "/url-scanner", label: "Link", icon: Link2 },
-  { to: "/screenshot", label: "Screenshot", icon: ImageIcon },
-  { to: "/assistant", label: "Ask a question", icon: Bot },
+  { to: "/url-scanner", label: "Link", icon: Link2, color: "text-link" },
+  { to: "/screenshot", label: "Screenshot", icon: ImageIcon, color: "text-lime" },
+  { to: "/assistant", label: "Ask a question", icon: Bot, color: "text-violet" },
 ] as const;
 
 function Dashboard() {
@@ -96,7 +96,7 @@ function Dashboard() {
           <PanelHeader
             title="Scam map"
             action={
-              <Link to="/threat-map" className="text-[13px] text-primary hover:underline">
+              <Link to="/threat-map" className="text-[13px] text-link hover:underline">
                 Open map
               </Link>
             }
@@ -135,7 +135,7 @@ function Dashboard() {
           {TRENDING_SCAMS.map((t) => (
             <article key={t.title} className="panel p-5">
               <p className="flex items-center gap-2 text-[13px] text-muted-foreground">
-                <span className={cn("size-2 rounded-full", t.level === "Rising" ? "bg-warning" : "bg-destructive")} />
+                <span className={cn("size-2 rounded-full", t.level === "Rising" ? "bg-lime" : "bg-destructive")} />
                 {t.level}
               </p>
               <h3 className="mt-3 text-base font-medium">{t.title}</h3>
@@ -190,7 +190,7 @@ function QuickScan() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Paste the SMS or WhatsApp message"
-          className="min-h-32 resize-none rounded-[10px] border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-primary"
+          className="min-h-32 resize-none rounded-[10px] border border-input bg-background p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-subtle focus:border-link"
         />
         <Button type="submit" variant="scan" size="lg" disabled={text.trim().length < 3}>
           <FileText /> Check message
@@ -199,7 +199,7 @@ function QuickScan() {
       <div className="mt-4 grid gap-1 border-t border-border pt-3 sm:grid-cols-3">
         {TOOLS.map((t) => (
           <Link key={t.to} to={t.to} className="flex min-w-0 items-center gap-2 rounded-lg px-2 py-2 text-sm text-muted-foreground transition-colors hover:bg-surface-raised hover:text-foreground">
-            <t.icon className="size-4 shrink-0 stroke-[1.5]" />
+            <t.icon className={cn("size-4 shrink-0 stroke-[1.5]", t.color)} />
             <span className="truncate">{t.label}</span>
           </Link>
         ))}

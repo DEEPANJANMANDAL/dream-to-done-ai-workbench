@@ -23,7 +23,7 @@ function ThreadPage() {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-2 p-6 text-center">
         <p className="text-sm">This conversation isn't saved in this browser.</p>
-        <Link to="/assistant" className="text-sm font-medium text-primary hover:underline">
+        <Link to="/assistant" className="text-sm font-medium text-link hover:underline">
           Start a new conversation
         </Link>
       </div>

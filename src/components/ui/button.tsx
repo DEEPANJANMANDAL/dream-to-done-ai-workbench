@@ -16,10 +16,10 @@ const buttonVariants = cva(
         secondary: "border border-border bg-surface-raised text-foreground hover:bg-[#2a2a2d]",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        scan: "bg-foreground text-background hover:bg-foreground/90",
+        scan: "bg-primary text-primary-foreground hover:bg-[#bac393]",
         danger: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         tab: "text-muted-foreground hover:text-foreground hover:bg-secondary",
-        "tab-active": "bg-surface-raised text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]",
+        "tab-active": "bg-surface-raised text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]",
       },
       size: {
         default: "h-9 px-4 py-2",

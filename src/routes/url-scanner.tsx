@@ -69,7 +69,7 @@ function UrlScannerPage() {
           }}
           className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]"
         >
-          <div className="flex min-w-0 items-center gap-3 rounded-[10px] border border-input bg-background px-3 transition-colors focus-within:border-primary">
+          <div className="flex min-w-0 items-center gap-3 rounded-[10px] border border-input bg-background px-3 transition-colors focus-within:border-link">
             <Link2 className="size-4 shrink-0 stroke-[1.5] text-subtle" />
             <label htmlFor="url" className="sr-only">Link to check</label>
             <input

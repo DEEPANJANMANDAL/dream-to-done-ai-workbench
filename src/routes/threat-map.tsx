@@ -58,7 +58,7 @@ function ThreatMapPage() {
         </div>
         <div className="grid grid-cols-[88px_minmax(0,1fr)] items-baseline gap-3">
           <DataBadge kind="estimated" />
-          <p className="text-muted-foreground">ScamShield projections and modelled shares. Useful for direction, not exact numbers. Shown with dashed grey lines.</p>
+          <p className="text-muted-foreground">ScamShield projections and modelled shares. Useful for direction, not exact numbers. Shown in violet with dashed lines.</p>
         </div>
       </div>
 
@@ -71,7 +71,7 @@ function ThreatMapPage() {
                 key={m.id}
                 type="button"
                 onClick={() => setMetricId(m.id)}
-                className={cn("flex-1 rounded-md px-3 py-2 text-[13px] font-medium transition-colors", metricId === m.id ? "bg-surface-raised text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]" : "text-muted-foreground hover:text-foreground")}
+                className={cn("flex-1 rounded-md px-3 py-2 text-[13px] font-medium transition-colors", metricId === m.id ? "bg-surface-raised text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]" : "text-muted-foreground hover:text-foreground")}
               >
                 {m.label}
               </button>
@@ -119,7 +119,7 @@ function ThreatMapPage() {
           <NationalTrendChart height={260} />
           <div className="mt-3 flex flex-wrap gap-4 font-mono text-xs text-subtle">
             <span className="flex items-center gap-2"><span className="h-0.5 w-4 rounded-full bg-primary" /> Reported (NCRB)</span>
-            <span className="flex items-center gap-2"><span className="w-4 border-t-2 border-dashed border-subtle" /> Estimated 2024–25</span>
+            <span className="flex items-center gap-2"><span className="w-4 border-t-2 border-dashed border-violet" /> Estimated 2024–25</span>
           </div>
         </Panel>
         <Panel>
@@ -139,7 +139,7 @@ function ThreatMapPage() {
             <li className="rounded-xl border border-border bg-surface-raised p-4">
               <div className="flex flex-wrap items-center gap-3">
                 <DataBadge kind="reported" />
-                <a href={NCRB_SOURCE.url} target="_blank" rel="noreferrer" className="font-medium text-primary hover:underline">{NCRB_SOURCE.name}</a>
+                <a href={NCRB_SOURCE.url} target="_blank" rel="noreferrer" className="font-medium text-link hover:underline">{NCRB_SOURCE.name}</a>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">State-wise cases 2021–2023, crime rate, national totals 2018–2023 and motives. Published 30 Sep 2025.</p>
             </li>
@@ -204,13 +204,13 @@ function StateDetail({ s }: { s: StateRow }) {
             />
             <Bar dataKey="value" radius={[4, 4, 0, 0]}>
               {data.map((d) => (
-                <Cell key={d.year} fill={d.year === "2023" ? "var(--primary)" : d.kind === "estimated" ? "var(--chart-5)" : "var(--chart-4)"} />
+                <Cell key={d.year} fill={d.year === "2023" ? "var(--lime)" : d.kind === "estimated" ? "var(--violet)" : "var(--primary)"} />
               ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <p className="mt-2 text-[13px] text-muted-foreground">2021 to 2023 are reported NCRB cases, 2024 is an estimate</p>
+      <p className="mt-2 text-[13px] text-muted-foreground">Sage bars are reported NCRB cases, lime marks the latest year, violet is the 2024 estimate</p>
     </Panel>
   );
 }

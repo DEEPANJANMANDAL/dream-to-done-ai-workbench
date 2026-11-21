@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PromptInput, PromptInputFooter, PromptInputSubmit, PromptInputTextarea } from "@/components/ai-elements/prompt-input";
-import { LogoMark } from "@/components/shield/Logo";
+import { MessagesSquare } from "lucide-react";
 import { STARTER_PROMPTS } from "@/components/shield/assistant-prompts";
 import { createThread } from "@/lib/threads";
 
@@ -24,7 +24,7 @@ function AssistantHome() {
     <div className="flex flex-1 flex-col overflow-y-auto p-4 sm:p-8">
       <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center">
         <div className="text-center">
-          <LogoMark className="mx-auto size-8" />
+          <MessagesSquare className="mx-auto size-8 stroke-[1.5] text-violet" />
           <h1 className="mt-4 text-[28px] font-medium leading-tight sm:text-[32px]">Ask about a call, message or link</h1>
           <p className="mt-2 text-[15px] text-muted-foreground">Any UPI ID, OTP request or suspicious call. Ask in Hindi, Hinglish, Tamil or any language you like</p>
         </div>

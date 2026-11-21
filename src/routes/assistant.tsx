@@ -37,7 +37,7 @@ function AssistantLayout() {
       <aside className="panel flex min-w-0 flex-col p-3 lg:h-[calc(100dvh-8rem)]">
         <div className="mb-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
           <h2 className="flex items-center gap-2 truncate text-sm font-semibold">
-            <MessagesSquare className="size-4 shrink-0 stroke-[1.5] text-subtle" /> Conversations
+            <MessagesSquare className="size-4 shrink-0 stroke-[1.5] text-violet" /> Conversations
           </h2>
           <Button
             size="sm"
@@ -59,7 +59,7 @@ function AssistantLayout() {
                 key={t.id}
                 className={cn(
                   "group flex w-56 shrink-0 items-center gap-1 rounded-md border border-transparent transition-colors lg:w-auto",
-                  t.id === activeId ? "border-border bg-surface-raised" : "hover:bg-surface-raised",
+                  t.id === activeId ? "border-violet/40 bg-violet/10" : "hover:bg-surface-raised",
                 )}
               >
                 <Link to="/assistant/$threadId" params={{ threadId: t.id }} className="min-w-0 flex-1 px-3 py-2">

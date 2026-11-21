@@ -11,9 +11,12 @@
 
 /*
  * ScamShield design system: calm and plain-spoken.
- * One graphite ramp for every surface, one sky-blue accent for focus,
- * selection and the figure that matters. Red, amber and green only ever
- * mean scam, suspicious and safe.
+ * Graphite surfaces carry four brand colors:
+ *   main      sage   #ACB686  logo, primary actions, active state, key figures, reported data
+ *   accent    slate  #869EB6  links, focus, second data series
+ *   secondary violet #7C64D8  estimates, projections, the assistant
+ *   secondary lime   #C0D864  chart highlights, rising trends
+ * Red, amber and green only ever mean scam, suspicious and safe.
  */
 
 @theme inline {
@@ -74,6 +77,8 @@
   --color-chat-user: var(--chat-user);
   --color-chat-user-foreground: var(--chat-user-foreground);
   --color-subtle: var(--subtle);
+  --color-link: var(--link);
+  --color-lime: var(--lime);
 
   --shadow-glow: var(--shadow-glow-value);
   --shadow-danger: var(--shadow-danger-value);
@@ -103,10 +108,16 @@
   --border: rgb(237 237 237 / 0.08);
   --input: rgb(237 237 237 / 0.12);
 
-  /* Accent: sky blue, dark text on it */
-  --primary: #6cb4f5;
-  --primary-foreground: #0c1620;
-  --ring: #6cb4f5;
+  /* Main: sage, dark text on it */
+  --primary: #acb686;
+  --primary-foreground: #1a1c12;
+  /* Accent: slate blue */
+  --link: #869eb6;
+  --ring: #869eb6;
+  /* Secondary pair */
+  --violet: #7c64d8;
+  --violet-foreground: #ffffff;
+  --lime: #c0d864;
 
   /* Verdicts */
   --destructive: #e5484d;
@@ -115,30 +126,26 @@
   --safe-foreground: #0d1f16;
   --warning: #e5a03b;
   --warning-foreground: #1f1405;
-  --info: #6cb4f5;
+  --info: #869eb6;
 
-  /* Estimates are quiet grey, never a second hue */
-  --violet: #a1a1a6;
-  --violet-foreground: #141415;
-
-  --chat-user: #232325;
+  --chat-user: #2a2440;
   --chat-user-foreground: #ededed;
 
-  /* Charts: one accent, the rest neutral steps */
-  --chart-1: #6cb4f5;
-  --chart-2: #8a8a90;
-  --chart-3: #6a6a70;
-  --chart-4: #4e4e54;
-  --chart-5: #3a3a3f;
+  /* Charts: brand colors in order, then neutral */
+  --chart-1: #acb686;
+  --chart-2: #869eb6;
+  --chart-3: #7c64d8;
+  --chart-4: #c0d864;
+  --chart-5: #6a6a70;
 
   --sidebar: #0f0f10;
   --sidebar-foreground: #ededed;
-  --sidebar-primary: #6cb4f5;
-  --sidebar-primary-foreground: #0c1620;
+  --sidebar-primary: #acb686;
+  --sidebar-primary-foreground: #1a1c12;
   --sidebar-accent: #232325;
   --sidebar-accent-foreground: #ededed;
   --sidebar-border: rgb(237 237 237 / 0.08);
-  --sidebar-ring: #6cb4f5;
+  --sidebar-ring: #869eb6;
 
   --shadow-glow-value: none;
   --shadow-danger-value: none;

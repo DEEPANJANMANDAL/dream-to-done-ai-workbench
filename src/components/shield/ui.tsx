@@ -25,7 +25,7 @@ export function PageIntro({ eyebrow, title, description, children }: { eyebrow: 
   return (
     <div className="mb-8 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
       <div className="min-w-0">
-        <p className="mb-2 font-mono text-xs text-subtle">{eyebrow}</p>
+        <p className="mb-2 font-mono text-xs text-primary">{eyebrow}</p>
         <h1 className="text-[28px] font-medium leading-tight sm:text-[32px]">{title}</h1>
         <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{description}</p>
       </div>
@@ -129,7 +129,7 @@ export function StatusTag({ status }: { status: CheckStatus }) {
 export function DataBadge({ kind }: { kind: "reported" | "estimated" }) {
   return (
     <span className="inline-flex shrink-0 items-center gap-2 font-mono text-xs text-subtle">
-      {kind === "reported" ? <span className="h-0.5 w-3 rounded-full bg-primary" /> : <span className="w-3 border-t-2 border-dashed border-subtle" />}
+      {kind === "reported" ? <span className="h-0.5 w-3 rounded-full bg-primary" /> : <span className="w-3 border-t-2 border-dashed border-violet" />}
       {kind === "reported" ? "Reported" : "Estimated"}
     </span>
   );
