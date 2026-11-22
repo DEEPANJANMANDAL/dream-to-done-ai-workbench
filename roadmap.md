@@ -1,8 +1,11 @@
 # ScamShield roadmap
-- [ ] Dark security dashboard design (SentinelX style, top tabs)
-- [ ] Dashboard home (KPIs, scam radar charts, trending, golden hour)
-- [ ] Message scanner (AI verdict)
-- [ ] Advanced URL scanner (phishing, domains/redirects, HTTPS, lookalike banks, explanations)
-- [ ] Screenshot scam detector (upload, read text, fake payment / QR detection)
-- [ ] India cyber threat map (state trends, categories, timeline, sources, reported vs estimated)
-- [ ] AI cyber safety assistant (separate conversations, each with its own page)
+- [x] Dark security dashboard design (SentinelX style, top tabs)
+- [x] Dashboard home (KPIs, scam radar charts, trending, golden hour)
+- [x] Message scanner (AI verdict)
+- [x] Advanced URL scanner (phishing, domains/redirects, HTTPS, lookalike banks, explanations)
+- [x] Screenshot scam detector (upload, read text, fake payment / QR detection)
+- [x] India cyber threat map (state trends, categories, timeline, sources, reported vs estimated)
+- [x] AI cyber safety assistant (separate conversations, each with its own page)
+- [ ] Add 2024 (official NCRB) plus 2025 and 2026 estimates to charts and state maps
+- [ ] Six-language switcher (EN, HI, BN, TA, TE, MR pending user confirmation); AI replies follow it
+- [ ] Give the dashboard "Open map" button its own distinct colour
