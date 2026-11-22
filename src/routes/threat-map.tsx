@@ -6,7 +6,10 @@ import { DataBadge, PageIntro, Panel, PanelHeader, formatIN } from "@/components
 import { IndiaTileMap, MapLegend } from "@/components/shield/IndiaTileMap";
 import { NationalTrendChart } from "@/components/shield/TrendChart";
 import { ShareList } from "@/components/shield/ShareList";
-import { MOTIVES_2023, NCRB_SOURCE, NATIONAL_TOTAL_2023, SCAM_TYPE_ESTIMATE, STATES, estimate2024, growth, type StateRow } from "@/lib/threat-data";
+import { MOTIVES_2024, NCRB_SOURCE, SCAM_TYPE_ESTIMATE, STATES, estimateCases, growth, type StateRow } from "@/lib/threat-data";
+import { en } from "@/lib/i18n/en";
+
+const tt = (k: string) => (en as Record<string, string>)[k] ?? k;
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/threat-map")({
@@ -28,12 +31,13 @@ export const Route = createFileRoute("/threat-map")({
   component: ThreatMapPage,
 });
 
-type Metric = "cases" | "rate" | "estimate";
+type Metric = "cases" | "rate" | "est2025" | "est2026";
 
 const METRICS: { id: Metric; label: string; kind: "reported" | "estimated"; get: (s: StateRow) => number; legend: string }[] = [
-  { id: "cases", label: "Cases 2023", kind: "reported", get: (s) => s.y2023, legend: "Cyber crime cases registered, 2023" },
-  { id: "rate", label: "Per lakh", kind: "reported", get: (s) => s.rate2023, legend: "Cases per 1 lakh people, 2023" },
-  { id: "estimate", label: "Est. 2024", kind: "estimated", get: estimate2024, legend: "ScamShield projection for 2024" },
+  { id: "cases", label: "2024", kind: "reported", get: (s) => s.y2024, legend: "Cyber crime cases registered, 2024" },
+  { id: "rate", label: "Per lakh", kind: "reported", get: (s) => s.rate2024, legend: "Cases per 1 lakh people, 2024" },
+  { id: "est2025", label: "2025 est.", kind: "estimated", get: (s) => estimateCases(s, 2025), legend: "ScamShield estimate for 2025" },
+  { id: "est2026", label: "2026 est.", kind: "estimated", get: (s) => estimateCases(s, 2026), legend: "ScamShield estimate for 2026" },
 ];
 
 function ThreatMapPage() {
@@ -58,7 +62,7 @@ function ThreatMapPage() {
         </div>
         <div className="grid grid-cols-[88px_minmax(0,1fr)] items-baseline gap-3">
           <DataBadge kind="estimated" />
-          <p className="text-muted-foreground">ScamShield projections and modelled shares. Useful for direction, not exact numbers. Shown in violet with dashed lines.</p>
+          <p className="text-muted-foreground">ScamShield projections for 2025 and 2026 and modelled shares. Useful for direction, not exact numbers. Shown in violet with dashed lines.</p>
         </div>
       </div>
 
@@ -119,19 +123,19 @@ function ThreatMapPage() {
           <NationalTrendChart height={260} />
           <div className="mt-3 flex flex-wrap gap-4 font-mono text-xs text-subtle">
             <span className="flex items-center gap-2"><span className="h-0.5 w-4 rounded-full bg-primary" /> Reported (NCRB)</span>
-            <span className="flex items-center gap-2"><span className="w-4 border-t-2 border-dashed border-violet" /> Estimated 2024–25</span>
+            <span className="flex items-center gap-2"><span className="w-4 border-t-2 border-dashed border-violet" /> Estimated 2025–26</span>
           </div>
         </Panel>
         <Panel>
-          <PanelHeader icon={<PieIcon />} title="Why cyber crimes happen (2023)" subtitle="Cases by motive" action={<DataBadge kind="reported" />} />
-          <ShareList data={MOTIVES_2023} />
+          <PanelHeader icon={<PieIcon />} title="Why cyber crimes happen (2024)" subtitle="Cases by motive" action={<DataBadge kind="reported" />} />
+          <ShareList data={MOTIVES_2024.map((d) => ({ name: tt(d.key), value: d.value }))} />
         </Panel>
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <Panel>
           <PanelHeader icon={<PieIcon />} title="Common fraud categories" subtitle="Share of scam messages people bring to ScamShield" action={<DataBadge kind="estimated" />} />
-          <ShareList data={SCAM_TYPE_ESTIMATE} unit="%" />
+          <ShareList data={SCAM_TYPE_ESTIMATE.map((d) => ({ name: tt(d.key), value: d.value }))} unit="%" />
         </Panel>
         <Panel>
           <PanelHeader icon={<BookOpen />} title="Sources & timestamps" />
@@ -141,14 +145,14 @@ function ThreatMapPage() {
                 <DataBadge kind="reported" />
                 <a href={NCRB_SOURCE.url} target="_blank" rel="noreferrer" className="font-medium text-link hover:underline">{NCRB_SOURCE.name}</a>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">State-wise cases 2021–2023, crime rate, national totals 2018–2023 and motives. Published 30 Sep 2025.</p>
+              <p className="mt-1 text-xs text-muted-foreground">State-wise cases 2022–2024, crime rate per lakh, national totals 2018–2024 and motives. Published 6 May 2026.</p>
             </li>
             <li className="rounded-xl border border-border bg-surface-raised p-4">
               <div className="flex flex-wrap items-center gap-3">
                 <DataBadge kind="estimated" />
                 <span className="font-medium">ScamShield projection model</span>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">2024–25 national estimate follows the 2021–23 growth trend. State 2024 estimate = 2023 cases × damped recent growth (capped −15% to +40%). Fraud category shares are modelled from common scam reports.</p>
+              <p className="mt-1 text-xs text-muted-foreground">2025 and 2026 estimates grow each state's 2024 cases each year by 60% of its 2023→24 change (capped −15% to +40%). The national estimate is the sum of the states. Fraud category shares are modelled from common scam reports.</p>
             </li>
             <li className="flex gap-2 text-[13px] leading-relaxed text-muted-foreground">
               <Info className="mt-0.5 size-4 shrink-0 stroke-[1.5]" />
@@ -167,7 +171,9 @@ function StateDetail({ s }: { s: StateRow }) {
     { year: "2021", value: s.y2021, kind: "reported" },
     { year: "2022", value: s.y2022, kind: "reported" },
     { year: "2023", value: s.y2023, kind: "reported" },
-    { year: "2024e", value: estimate2024(s), kind: "estimated" },
+    { year: "2024", value: s.y2024, kind: "reported" },
+    { year: "2025e", value: estimateCases(s, 2025), kind: "estimated" },
+    { year: "2026e", value: estimateCases(s, 2026), kind: "estimated" },
   ];
   return (
     <Panel>
@@ -179,17 +185,17 @@ function StateDetail({ s }: { s: StateRow }) {
         <span className={cn("inline-flex items-center gap-1 font-mono text-[13px] tabular-nums", g > 0 ? "text-destructive" : "text-safe")}>
           {g > 0 ? <TrendingUp className="size-4 stroke-[1.5]" /> : <TrendingDown className="size-4 stroke-[1.5]" />}
           {g > 0 ? "+" : ""}
-          {Math.round(g * 100)}% vs 2022
+          {Math.round(g * 100)}% vs 2023
         </span>
       </div>
       <div className="grid grid-cols-2 gap-2">
         <div className="rounded-xl bg-surface-raised p-4">
-          <p className="text-[13px] text-muted-foreground">Cases 2023</p>
-          <p className="mt-1 text-2xl font-medium tabular-nums">{formatIN(s.y2023)}</p>
+          <p className="text-[13px] text-muted-foreground">Cases 2024</p>
+          <p className="mt-1 text-2xl font-medium tabular-nums">{formatIN(s.y2024)}</p>
         </div>
         <div className="rounded-xl bg-surface-raised p-4">
           <p className="text-[13px] text-muted-foreground">Per lakh people</p>
-          <p className="mt-1 text-2xl font-medium tabular-nums">{s.rate2023.toFixed(1)}</p>
+          <p className="mt-1 text-2xl font-medium tabular-nums">{s.rate2024.toFixed(1)}</p>
         </div>
       </div>
       <div className="mt-3 h-36">
@@ -204,13 +210,13 @@ function StateDetail({ s }: { s: StateRow }) {
             />
             <Bar dataKey="value" radius={[4, 4, 0, 0]}>
               {data.map((d) => (
-                <Cell key={d.year} fill={d.year === "2023" ? "var(--lime)" : d.kind === "estimated" ? "var(--violet)" : "var(--chart-1)"} />
+                <Cell key={d.year} fill={d.year === "2024" ? "var(--lime)" : d.kind === "estimated" ? "var(--violet)" : "var(--chart-1)"} />
               ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <p className="mt-2 text-[13px] text-muted-foreground">Sage bars are reported NCRB cases, lime marks the latest year, violet is the 2024 estimate</p>
+      <p className="mt-2 text-[13px] text-muted-foreground">Sage bars are reported NCRB cases, lime marks 2024, violet bars are estimates for 2025 and 2026</p>
     </Panel>
   );
 }

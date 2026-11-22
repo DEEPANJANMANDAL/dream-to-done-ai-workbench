@@ -83,6 +83,8 @@
   --color-lime-strong: var(--lime-strong);
   --color-slate: var(--slate);
   --color-field: var(--field);
+  --color-map: var(--map);
+  --color-map-foreground: var(--map-foreground);
 
   --shadow-glow: var(--shadow-glow-value);
   --shadow-danger: var(--shadow-danger-value);
@@ -124,6 +126,9 @@
   --violet-foreground: #ffffff;
   --lime: #c0d864;
   --lime-strong: #7f9624;
+  /* Unique to the "Open map" button */
+  --map: #0f6f78;
+  --map-foreground: #ffffff;
 
   /* Verdicts */
   --destructive: #d42f2f;

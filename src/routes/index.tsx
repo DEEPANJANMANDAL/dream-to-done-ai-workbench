@@ -8,7 +8,10 @@ import { IndiaTileMap, MapLegend } from "@/components/shield/IndiaTileMap";
 import { ShareList } from "@/components/shield/ShareList";
 import { RecentScans } from "@/components/shield/RecentScans";
 import { useHistory } from "@/lib/history";
-import { NATIONAL_TOTAL_2022, NATIONAL_TOTAL_2023, SCAM_TYPE_ESTIMATE, STATES, TRENDING_SCAMS } from "@/lib/threat-data";
+import { NATIONAL_TOTAL_2023, NATIONAL_TOTAL_2024, SCAM_TYPE_ESTIMATE, STATES, TRENDING_SCAMS, nationalEstimate } from "@/lib/threat-data";
+import { en } from "@/lib/i18n/en";
+
+const tt = (k: string) => (en as Record<string, string>)[k] ?? k;
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
@@ -39,8 +42,8 @@ const TOOLS = [
 function Dashboard() {
   const history = useHistory();
   const caught = history.filter((h) => h.verdict !== "safe").length;
-  const growthPct = Math.round(((NATIONAL_TOTAL_2023 - NATIONAL_TOTAL_2022) / NATIONAL_TOTAL_2022) * 1000) / 10;
-  const top = [...STATES].sort((a, b) => b.y2023 - a.y2023).slice(0, 3);
+  const growthPct = Math.round(((NATIONAL_TOTAL_2024 - NATIONAL_TOTAL_2023) / NATIONAL_TOTAL_2023) * 1000) / 10;
+  const top = [...STATES].sort((a, b) => b.y2024 - a.y2024).slice(0, 3);
   const lead = TRENDING_SCAMS[0];
 
   return (
@@ -49,8 +52,8 @@ function Dashboard() {
         <span className="size-2 shrink-0 rounded-full bg-destructive" />
         <span className="shrink-0 text-muted-foreground">Trending now</span>
         <span className="min-w-0 truncate">
-          <span className="font-medium">{lead.title}</span>
-          <span className="hidden text-muted-foreground sm:inline"> · {lead.desc}</span>
+          <span className="font-medium">{tt(`${lead.key}.title`)}</span>
+          <span className="hidden text-muted-foreground sm:inline"> · {tt(`${lead.key}.desc`)}</span>
         </span>
         <ChevronRight className="ml-auto size-4 shrink-0 stroke-[1.5] text-subtle transition-transform group-hover:translate-x-0.5" />
       </a>
@@ -64,8 +67,8 @@ function Dashboard() {
       </div>
 
       <div className={`mt-8 grid gap-4 sm:grid-cols-2 ${history.length > 0 ? "lg:grid-cols-4" : ""}`}>
-        <StatCard label="Cyber crimes registered in 2023" value={formatIN(NATIONAL_TOTAL_2023)} hint={`+${growthPct}% vs 2022 · NCRB`} accent />
-        <StatCard label="Share of cases that are fraud" value="69%" hint="Of all cyber crime cases, 2023 · NCRB" />
+        <StatCard label="Cyber crimes registered in 2024" value={formatIN(NATIONAL_TOTAL_2024)} hint={`+${growthPct}% vs 2023 · NCRB`} accent />
+        <StatCard label="Share of cases that are fraud" value="73%" hint="Of all cyber crime cases, 2024 · NCRB" />
         {history.length > 0 && (
           <>
             <StatCard label="Your checks" value={String(history.length)} hint="Saved on this device" />
@@ -78,7 +81,7 @@ function Dashboard() {
         <Panel>
           <PanelHeader
             title="Cyber crime cases in India"
-            subtitle="Registered cases per year, with a projection for 2024 and 2025"
+            subtitle="Registered cases per year, with estimates for 2025 and 2026"
             action={
               <div className="flex gap-4">
                 <DataBadge kind="reported" />
@@ -88,7 +91,7 @@ function Dashboard() {
           />
           <NationalTrendChart height={280} />
           <p className="mt-4 border-t border-border pt-4 text-sm leading-relaxed text-muted-foreground">
-            Registered cyber crimes grew {growthPct}% in 2023. If that pace continues, cases could pass 1 lakh in 2024. The dashed line is a projection, not reported data
+            Registered cyber crimes grew {growthPct}% in 2024 and passed 1 lakh for the first time. At the current pace they could reach about {formatIN(nationalEstimate(2026))} in 2026. The dashed line is an estimate, not reported data
           </p>
         </Panel>
 
@@ -96,20 +99,20 @@ function Dashboard() {
           <PanelHeader
             title="Scam map"
             action={
-              <Link to="/threat-map" className="text-[13px] text-link hover:underline">
-                Open map
+              <Link to="/threat-map" className="inline-flex items-center gap-1 rounded-lg bg-map px-3 py-1.5 text-[13px] font-medium text-map-foreground transition-colors hover:bg-map/90">
+                Open map <ArrowRight className="size-3.5" />
               </Link>
             }
           />
-          <IndiaTileMap metric={(s) => s.y2023} compact />
+          <IndiaTileMap metric={(s) => s.y2024} compact />
           <div className="mt-4 space-y-3">
-            <MapLegend label="Cases, 2023" />
+            <MapLegend label="Cases, 2024" />
             <ol className="space-y-2 border-t border-border pt-3">
               {top.map((s, i) => (
                 <li key={s.code} className="grid grid-cols-[16px_minmax(0,1fr)_auto] items-baseline gap-2 text-sm">
                   <span className="font-mono text-xs text-subtle">{i + 1}</span>
                   <span className="truncate">{s.name}</span>
-                  <span className="font-mono text-[13px] tabular-nums text-muted-foreground">{formatIN(s.y2023)}</span>
+                  <span className="font-mono text-[13px] tabular-nums text-muted-foreground">{formatIN(s.y2024)}</span>
                 </li>
               ))}
             </ol>
@@ -124,7 +127,7 @@ function Dashboard() {
         </Panel>
         <Panel>
           <PanelHeader title="Scam types we see" action={<DataBadge kind="estimated" />} />
-          <ShareList data={SCAM_TYPE_ESTIMATE} unit="%" />
+          <ShareList data={SCAM_TYPE_ESTIMATE.map((d) => ({ name: tt(d.key), value: d.value }))} unit="%" />
         </Panel>
       </div>
 
@@ -140,13 +143,13 @@ function Dashboard() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {TRENDING_SCAMS.map((t) => (
-            <article key={t.title} className="panel p-5">
+            <article key={t.key} className="panel p-5">
               <p className="flex items-center gap-2 text-[13px] text-muted-foreground">
-                <span className={cn("size-2 rounded-full", t.level === "Rising" ? "bg-lime-strong" : "bg-destructive")} />
-                {t.level}
+                <span className={cn("size-2 rounded-full", t.level === "rising" ? "bg-lime-strong" : "bg-destructive")} />
+                {tt(`level.${t.level}`)}
               </p>
-              <h3 className="mt-3 text-base font-medium">{t.title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
+              <h3 className="mt-3 text-base font-medium">{tt(`${t.key}.title`)}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{tt(`${t.key}.desc`)}</p>
             </article>
           ))}
         </div>
